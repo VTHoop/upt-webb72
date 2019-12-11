@@ -1,0 +1,19 @@
+<div class="container register">
+
+  <form [formGroup]="registerForm" class="register__form">
+    <div class="register__form-inputs">
+      <p>Register with email</p>
+      <input type="email" formControlName="email" class="input" placeholder="Email Address" required>
+      <input type="password" class="input" formControlName="password" placeholder="Password" required>
+      <label class="error">{{errorMessage}}</label>
+      <label class="success">{{successMessage}}</label>
+    </div>
+    <button type="submit" (click)="tryRegister(registerForm.value)" class="button register__action">Register with Email</button>
+    <p>----- OR ------</p>
+
+    <button (click)="authService.doGoogleLogin()" class="button register__action">Register with Google</button>
+    <button (click)="authService.doFacebookLogin()" class="button register__action--facebook">Register with Facebook</button>
+  </form>
+
+
+</div>

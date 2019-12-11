@@ -1,0 +1,46 @@
+.landing {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.nav {
+  background: white;
+  border-bottom: 2px solid var(--color-accent);
+  flex: 0 0 5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    padding: 1rem;
+  }
+}
+
+.home {
+  display: flex;
+  flex: 1;
+
+  &__left {
+    background-image: url('../../../assets/img/t-38.jpg');
+    background-size: cover;
+    flex: 1;
+  }
+
+  &__right {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.app-login {
+  flex: 1;
+}
