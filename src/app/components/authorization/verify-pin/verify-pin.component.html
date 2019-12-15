@@ -1,0 +1,28 @@
+<div class="container verify-pin">
+
+    <form [formGroup]="pinForm" class="verify-pin__form" (ngSubmit)="onSubmit()">
+        <h2 class="heading heading-2">Verify Pin</h2>
+        <div class="subtitle--form">
+            <p>Thanks for signing up!</p>
+            <p>Please check the email that you registered with for a 4-digit verification pin</p>
+            <p>You will not be able to access the site until that pin has been provided.</p>
+            <p>If you do not see the e-mail, please check your spam filter and contact support if you need assistance.
+            </p>
+        </div>
+        <div class="verify-pin__form-inputs">
+            <div class="form__group">
+                <label for="pin" class="form__label">Pin</label>
+                <div class="form__input--with-icon">
+                    <input type="text" formControlName="pin" name="pin" class="form__input " required>
+                    <app-field-status [status]="pinForm.controls.pin"></app-field-status>
+                </div>
+            </div>
+            <label class="error">{{errorMessage}}</label>
+            <label class="success">{{successMessage}}</label>
+            <button type="submit" class="btn btn-light" [disabled]="pinForm.invalid">Verify</button>
+        </div>
+
+    </form>
+
+
+</div>

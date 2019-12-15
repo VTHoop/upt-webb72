@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+
 import { UsersService } from '../services/users.service';
+import { ValidUsersService } from '../services/valid-users.service';
 import { User } from '../models/user.model';
-import { Observable, of } from 'rxjs';
-import { take, first } from 'rxjs/operators';
+
+import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { auth } from 'firebase/app';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { DocumentChangeAction } from '@angular/fire/firestore';
+import { ValidUser } from '../models/valid-user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,61 +17,85 @@ import { take, first } from 'rxjs/operators';
 export class AuthService {
   loggedInUser;
 
-  constructor(public afAuth: AngularFireAuth, public usersService: UsersService) {}
+  constructor(
+    public afAuth: AngularFireAuth,
+    public usersService: UsersService,
+    public validUsersService: ValidUsersService
+  ) {}
 
-  getLoggedInUser(): Observable<User> {
-    return this.loggedInUser;
+  getLoggedInUser() {
+    return this.afAuth.authState;
   }
 
-  doFacebookLogin() {
-    const provider = new auth.FacebookAuthProvider();
-    return this.oAuthLogin(provider);
-  }
+  // doFacebookLogin() {
+  //   const provider = new auth.FacebookAuthProvider();
+  //   return this.oAuthLogin(provider);
+  // }
 
-  doGoogleLogin() {
-    const provider = new auth.GoogleAuthProvider();
-    // provider.addScope('profile');
-    // provider.addScope('email');
-    return this.oAuthLogin(provider);
-  }
+  // doGoogleLogin() {
+  //   const provider = new auth.GoogleAuthProvider();
+  //   // provider.addScope('profile');
+  //   // provider.addScope('email');
+  //   return this.oAuthLogin(provider);
+  // }
 
-  private oAuthLogin(provider) {
-    return new Promise<any>((resolve, reject) =>
-      this.afAuth.auth.signInWithPopup(provider).then(
-        credentials => {
-          this.loggedInUser = this.usersService.getUsers('uid', credentials.user.uid).pipe(first());
-          this.loggedInUser.subscribe(loggedInUser => {
-            if (!loggedInUser[0]) {
-              this.createNewUser(credentials);
-            }
-            console.log(loggedInUser);
-          });
-          resolve(credentials);
-        },
-        err => {
-          console.log(err);
-          reject(err);
-        }
-      )
-    );
-  }
+  // private oAuthLogin(provider) {
+  //   return new Promise<any>((resolve, reject) =>
+  //     this.afAuth.auth.signInWithPopup(provider).then(
+  //       credentials => {
+  //         this.loggedInUser = this.usersService.getUsers('uid', credentials.user.uid).pipe(first());
+  //         this.loggedInUser.subscribe(loggedInUser => {
+  //           if (!loggedInUser[0]) {
+  //             this.createNewUser(credentials);
+  //           }
+  //         });
+  //         resolve(credentials);
+  //       },
+  //       err => {
+  //         console.log(err);
+  //         reject(err);
+  //       }
+  //     )
+  //   );
+  // }
 
-  private createNewUser(credentials) {
+  private createNewUser(credentials, validUser) {
     const newUser: User = {
       uid: credentials.user.uid,
-      email: credentials.user.email
+      email: credentials.user.email,
+      firstName: validUser.payload.doc.data().firstName,
+      lastName: validUser.payload.doc.data().lastName,
+      registered: true,
+      pinVerified: false
     };
     this.usersService.createUser(newUser);
+    this.validUsersService.updateUserData(credentials.user.email, validUser.payload.doc.id);
   }
 
-  doRegister(value) {
+  doRegister(value, validUser: DocumentChangeAction<ValidUser>) {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password).then(
-        res => {
-          resolve(res);
+        credentials => {
+          this.createNewUser(credentials, validUser);
+          resolve(credentials);
         },
         err => reject(err)
       );
     });
+  }
+
+  doLogin(value) {
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.auth.signInWithEmailAndPassword(value.email, value.password).then(
+        credentials => {
+          resolve(credentials);
+        },
+        err => reject(err)
+      );
+    });
+  }
+
+  doLogout() {
+    return this.afAuth.auth.signOut();
   }
 }

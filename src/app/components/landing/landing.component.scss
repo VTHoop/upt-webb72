@@ -2,11 +2,38 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
+  &__background {
+    min-height: 100vh;
+    background-image: linear-gradient(to right, rgba(gray, 0.7), rgba(darken(gray, 30%), 0.7)),
+      url('../../../assets/img/t-38.jpg');
+    background-size: cover;
+  }
+
+  &__title {
+    color: white;
+  }
+
+  &__subtitle {
+    font-size: 4rem;
+    color: white;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__action {
+    flex: 1;
+    margin: 4rem 1rem;
+  }
 }
 
 .nav {
-  background: white;
-  border-bottom: 2px solid var(--color-accent);
+  // background: white;
+  // border-bottom: 2px solid var(--color-accent);
+  padding: 1rem 5rem;
   flex: 0 0 5rem;
 
   display: flex;
@@ -20,20 +47,39 @@
     text-transform: uppercase;
     padding: 1rem;
   }
+
+  &__greeting {
+    color: white;
+    font-size: 1.6rem;
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+
+    & > * {
+      margin-right: 4rem;
+    }
+  }
 }
 
 .home {
   display: flex;
+  justify-content: center;
+  align-items: center;
+
   flex: 1;
 
   &__left {
-    background-image: url('../../../assets/img/t-38.jpg');
-    background-size: cover;
+    text-align: center;
+    padding: 5rem;
     flex: 1;
   }
 
   &__right {
-    flex: 1;
+    background-color: var(--color-primary-darkened);
+    align-self: stretch;
+    flex: 0 0 30%;
 
     display: flex;
     justify-content: center;

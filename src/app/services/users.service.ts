@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument,
+  DocumentChangeAction,
+  DocumentSnapshot,
+  Action
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
@@ -31,30 +38,19 @@ export class UsersService {
     });
   }
 
-  updateUserData(user: User) {
-    // Sets user data to firestore on login
-
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-
-    const data: User = {
-      uid: user.uid,
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      city: user.city,
-      state: user.state
-    };
-
-    return userRef.set(data, { merge: true });
+  updateUserData(id: string, data: any) {
+    return this.getUserReference(null, null)
+      .doc(id)
+      .update(data);
   }
 
-  getUsers(field: string, id: string): Observable<User[]> {
-    return this.getUserReference(field, id).valueChanges();
+  getUsers(field: string, id: string): Observable<DocumentChangeAction<User>[]> {
+    return this.getUserReference(field, id).snapshotChanges();
   }
 
-  getUserById(id: string): Observable<User> {
+  getUserById(id: string): Observable<Action<DocumentSnapshot<User>>> {
     return this.getUserReference(null, null)
       .doc<User>(id)
-      .valueChanges();
+      .snapshotChanges();
   }
 }

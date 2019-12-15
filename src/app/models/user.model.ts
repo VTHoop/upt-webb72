@@ -5,4 +5,6 @@ export interface User {
     lastName?: string;
     city?: string;
     state?: string;
+    registered: boolean;
+    pinVerified: boolean;
   }

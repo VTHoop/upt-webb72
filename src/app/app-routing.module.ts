@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RegisterComponent } from './shared/register/register.component';
+import { RegisterComponent } from './components/authorization/register/register.component';
 import { LandingComponent } from './components/landing/landing.component';
 
 const routes: Routes = [

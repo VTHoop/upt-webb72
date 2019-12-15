@@ -1,0 +1,62 @@
+.login {
+  padding: 0 4rem;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &-inputs {
+      margin-bottom: 4rem;
+    }
+  }
+
+  &-activate-email {
+    background-color: white;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  &__action {
+    display: flex;
+
+    &--facebook {
+      background-color: #395a9a;
+      color: white;
+      margin: 1rem 0;
+    }
+
+    &--google {
+      background-color: white;
+      margin: 1rem 0;
+    }
+
+  }
+}
+
+.email-login {
+  margin-top: 4rem;
+
+  &__action {
+    margin-top: 4rem;
+    background-color: white;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: 8px;
+    font-weight: 700;
+    text-align: center;
+  }
+}
+
+.action-icon {
+  flex: 0 0 40px;
+  content: '-';
+}
+
+.email-icon {
+  color: var(--color-primary);
+}
+

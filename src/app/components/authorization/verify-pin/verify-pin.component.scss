@@ -1,0 +1,18 @@
+.verify-pin {
+  padding: 0 4rem;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &-inputs {
+      margin-bottom: 4rem;
+    }
+  }
+}
+
+.error {
+  color: darkorange;
+  font-size: 1.4rem;
+}

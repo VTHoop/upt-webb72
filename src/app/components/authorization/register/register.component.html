@@ -1,0 +1,31 @@
+<div class="container register">
+
+  <form [formGroup]="registerForm" class="register__form" (ngSubmit)="onSubmit()">
+    <h2 class="heading heading-2">Register</h2>
+    <div class="register__form-inputs">
+      <div class="email-register">
+        <div class="form__group">
+          <label for="email" class="form__label">Email</label>
+          <div class="form__input--with-icon">
+            <input type="email" formControlName="email" class="form__input " required>
+            <app-field-status [status]="registerForm.controls.email"></app-field-status>
+          </div>
+        </div>
+        <div class="form__group">
+          <label for="password" class="form__label">Password</label>
+          <div class="form__input--with-icon">
+            <input type="password" class="form__input" formControlName="password" required>
+            <app-field-status [status]="registerForm.controls.password"></app-field-status>
+          </div>
+        </div>
+        <label class="error">{{errorMessage}}</label>
+        <label class="success">{{successMessage}}</label>
+        <button type="submit" class="btn btn-light email-register__action"
+          [disabled]="registerForm.invalid">Register</button>
+      </div>
+    </div>
+
+  </form>
+
+
+</div>

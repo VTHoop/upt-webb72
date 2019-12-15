@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-    --color-primary: #3a46b8;
+    --color-primary: #505b68;
+    --color-primary-darkened: #505b68;
     --color-gray-light-1: #f8f8f8;
     --color-gray-light-2: #e6e6e6;
 
@@ -9,7 +10,7 @@
   
     --color-gray-dark-1: #54483a;
   
-    --font-primary: 'Roboto', sans-serif;
+    --font-primary: 'Cardo', sans-serif;
   }
   
   *,
@@ -33,32 +34,91 @@
     background-color: var(--color-gray-light-2);
   }
 
+
+
+.heading {
+  font-family: 'Oswald', serif;
+  text-transform: uppercase;
+}
+
+.heading-1 {
+  font-size: 8rem;
+}
+
+.heading-2 {
+  font-size: 4rem;
+  color: white;
+}
+
+.subtitle {
+  &--form {
+    color: white;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+
+    p{
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 ///////////////////////
 // COMPONENTS
 //////////////////////
 
 input {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Cardo', sans-serif;
+}
+
+button {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: .1rem;
+  font-size: 1.6rem;
+  max-width: 350px;
+
+  &:disabled {
+    opacity: 0.30; 
+    cursor: not-allowed;
+  }
 }
 
 a.btn {
   text-transform: uppercase;
   text-decoration: none;
-  padding: 1rem 3rem;
+  padding: 1.5rem 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
   // margin: 1rem 0rem;
-  font-size: 1.2rem;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: .1rem;
+  font-size: 1.6rem;
+  max-width: 350px;
 
 
-  &-save:link,
-  &-save:visited {
-    background-color: green;
+  &-dark:link,
+  &-dark:visited {
+    background-color: var(--color-primary);
     color: white;
-    border-radius: 8px;
+    border: 1px solid white;
+    border-radius: 4px;
     font-weight: 700;
-    // width: 25%;
+    text-align: center;
+  }
+
+  &-light:link,
+  &-light:visited {
+    background-color: white;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+    font-weight: 700;
     text-align: center;
   }
 }
@@ -71,16 +131,29 @@ a.btn {
   &__input {
     font-size: 1.5rem;
     font-family: inherit;
-    color: inherit;
+    color: white;
     padding: 1.5rem 2rem;
     border-radius: 2px;
-    background-color: rgba(white, 0.5);
-    border: none;
-    border-bottom: 3px solid transparent;
-    width: 90%;
+    background-color: var(--color-primary);
+    width: 100%;
     display: block;
     transition: all 0.3s;
-    border-bottom: 1px solid var(--color-primary);
+    border: none;
+    border-bottom: 2px solid white;
+
+    &--with-icon{
+      display: flex;
+      align-items: center;
+
+      input {
+        flex: 1;
+        margin-right: 2rem;
+      }
+
+      app-field-status {
+        flex: 0 0 15%;
+      }
+    }
 
     &--small {
       font-size: 1.2rem;
@@ -92,8 +165,8 @@ a.btn {
 
     &:focus {
       outline: none;
-      box-shadow: 0 1rem 2rem rgba(black, 0.1);
-      border-bottom: 4px solid var(--color-primary);
+      // box-shadow: 0 1rem 2rem rgba(black, 0.1);
+      // border-bottom: 4px solid var(--color-primary);
     }
 
     &:focus:invalid {
@@ -106,17 +179,10 @@ a.btn {
   }
 
   &__label {
+    color: white;
+    text-transform: uppercase;
     font-size: 1.2rem;
     font-weight: 700;
-    margin-left: 2rem;
-    margin-top: 0.7rem;
     display: block;
-    transition: all 0.3s;
-  }
-
-  &__input:placeholder-shown + &__label {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-4rem);
   }
 }

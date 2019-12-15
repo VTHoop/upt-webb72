@@ -1,12 +1,41 @@
-<div class="landing">
-    <nav class="nav">
-        <div class="nav__title">UPT 72-09 Webb AFB</div>
-        <div class="nav__actions">{{ (loggedInUser$ | async) }}</div>
-    </nav>
-    <div class="home">
-        <div class="home__left"></div>
-        <div class="home__right">
-            <app-login class="app-login"></app-login>
+<div class="landing landing__background">
+    <div *ngIf="(loggedInUser$ | async) as loggedInUser">
+        <div *ngIf="(addlUserInfo$ | async) as userNavInfo">
+            <nav class="nav" *ngIf="loggedInUser && userNavInfo[0].payload.doc.data().pinVerified">
+                <div class="nav__title"></div>
+                <div class="nav__menu">
+                    <div class="nav__actions"></div>
+                    <div class="nav__greeting">Hello, {{ userNavInfo[0].payload.doc.data().firstName }}</div>
+                    <div class="nav__logout" (click)="onLogoutClicked()">
+                        <a href="#" class="btn btn-dark">Logout</a>
+                    </div>
+                </div>
+            </nav>
         </div>
     </div>
+    <div class="home">
+        <div class="home__left">
+            <div class="heading heading-1 landing__title">UPT 72-09 Webb AFB</div>
+            <div class="subtitle landing__subtitle">
+                Join your classmates to receive updates on your fellow
+                classmates and upcoming reunions.
+            </div>
+            <div class="landing__actions" *ngIf="!isUserLoggedIn">
+                <a href="#" class="btn btn-dark landing__action" (click)="onRegisterClicked()">Register</a>
+                <a href="#" class="btn btn-light landing__action" (click)="onLoginClicked()">Login</a>
+            </div>
+        </div>
+        <div class="home__right" *ngIf="sidebarEnabled">
+            <app-login class="app-login" *ngIf="loginEnabled && !isUserLoggedIn"></app-login>
+            <app-register class="app-login" *ngIf="registerEnabled && !isUserLoggedIn"></app-register>
+            <div *ngIf="(addlUserInfo$ | async) as userVerifyInfo">
+                <app-verify-pin class="app-login" [loggedInUser]="loggedInUser$"
+                    [userDocId]="userVerifyInfo[0].payload.doc.id"
+                    *ngIf="isUserLoggedIn && !userVerifyInfo[0].payload.doc.data().pinVerified">
+                </app-verify-pin>
+            </div>
+        </div>
+    </div>
+
+
 </div>
