@@ -65,6 +65,14 @@ export class AuthService {
       email: credentials.user.email,
       firstName: validUser.payload.doc.data().firstName,
       lastName: validUser.payload.doc.data().lastName,
+      middleInitial: validUser.payload.doc.data().middleInitial,
+      rank: validUser.payload.doc.data().rank,
+      nickname: validUser.payload.doc.data().nickname,
+      cellPhone: validUser.payload.doc.data().cellPhone,
+      homePhone: validUser.payload.doc.data().homePhone,
+      hometownCity: validUser.payload.doc.data().hometownCity,
+      hometownState: validUser.payload.doc.data().hometownState,
+      school: validUser.payload.doc.data().school,
       registered: true,
       pinVerified: false
     };

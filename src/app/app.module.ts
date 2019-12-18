@@ -14,9 +14,20 @@ import { environment } from 'src/environments/environment';
 import { LandingComponent } from './components/landing/landing.component';
 import { FieldStatusComponent } from './components/shared/field-status/field-status.component';
 import { VerifyPinComponent } from './components/authorization/verify-pin/verify-pin.component';
+import { BasicProfileComponent } from './components/profile/basic-profile/basic-profile.component';
+import { PhonePipe } from './pipes/phone.pipe';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, LandingComponent, FieldStatusComponent, VerifyPinComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    LandingComponent,
+    FieldStatusComponent,
+    VerifyPinComponent,
+    BasicProfileComponent,
+    PhonePipe
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

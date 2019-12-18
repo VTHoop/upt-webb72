@@ -1,44 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-    --color-primary: #505b68;
-    --color-primary-darkened: #505b68;
-    --color-gray-light-1: #f8f8f8;
-    --color-gray-light-2: #e6e6e6;
+  --color-primary: #505b68;
+  --color-primary-darkened: #505b68;
+  --color-gray-light-1: #f8f8f8;
+  --color-gray-light-2: #e6e6e6;
 
-    --color-accent:rgb(255, 255, 67);
-  
-    --color-gray-dark-1: #54483a;
-  
-    --font-primary: 'Cardo', sans-serif;
-  }
-  
-  *,
-  *::before,
-  *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
-  }
-  
-  html {
-    box-sizing: border-box;
-    font-size: 62.5%;
-  }
-  
-  body {
-    font-family: var(--font-primary);
-    color: var(--color-gray-dark-1);
-    font-weight: 300;
-    line-height: 1.6;
-    background-color: var(--color-gray-light-2);
-  }
+  --color-accent: rgb(255, 255, 67);
 
+  --color-gray-dark-1: #54483a;
 
+  --font-primary: 'Cardo', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: var(--font-primary);
+  color: var(--color-gray-dark-1);
+  font-weight: 300;
+  line-height: 1.6;
+  background-color: var(--color-gray-light-2);
+}
 
 .heading {
   font-family: 'Oswald', serif;
   text-transform: uppercase;
+  margin-bottom: 4rem;
 }
 
 .heading-1 {
@@ -56,7 +55,7 @@
     font-size: 1.4rem;
     margin-bottom: 2rem;
 
-    p{
+    p {
       margin-bottom: 1rem;
     }
   }
@@ -78,12 +77,12 @@ button {
   align-items: center;
   justify-content: center;
   font-family: 'Oswald', sans-serif;
-  letter-spacing: .1rem;
+  letter-spacing: 0.1rem;
   font-size: 1.6rem;
   max-width: 350px;
 
   &:disabled {
-    opacity: 0.30; 
+    opacity: 0.3;
     cursor: not-allowed;
   }
 }
@@ -97,10 +96,9 @@ a.btn {
   justify-content: center;
   // margin: 1rem 0rem;
   font-family: 'Oswald', sans-serif;
-  letter-spacing: .1rem;
+  letter-spacing: 0.1rem;
   font-size: 1.6rem;
   max-width: 350px;
-
 
   &-dark:link,
   &-dark:visited {
@@ -132,7 +130,7 @@ a.btn {
     font-size: 1.5rem;
     font-family: inherit;
     color: white;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 1.5rem;
     border-radius: 2px;
     background-color: var(--color-primary);
     width: 100%;
@@ -141,7 +139,7 @@ a.btn {
     border: none;
     border-bottom: 2px solid white;
 
-    &--with-icon{
+    &--with-icon {
       display: flex;
       align-items: center;
 
@@ -165,8 +163,13 @@ a.btn {
 
     &:focus {
       outline: none;
+      border-bottom: 2px solid yellow;
       // box-shadow: 0 1rem 2rem rgba(black, 0.1);
       // border-bottom: 4px solid var(--color-primary);
+    }
+
+    &:disabled {
+      border: none;
     }
 
     &:focus:invalid {
@@ -179,10 +182,21 @@ a.btn {
   }
 
   &__label {
+    font-family: 'Oswald';
     color: white;
     text-transform: uppercase;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 700;
     display: block;
   }
+}
+
+.profile-pic {
+  background-image: url('./assets/img/Hooper\ Tiger.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  align-self: center;
 }

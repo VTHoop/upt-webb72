@@ -6,6 +6,10 @@
                 <div class="nav__menu">
                     <div class="nav__actions"></div>
                     <div class="nav__greeting">Hello, {{ userNavInfo[0].payload.doc.data().firstName }}</div>
+                    <div class="nav__view-profile">
+                        <div class="profile-pic nav__view-profile-pic"></div>
+                        <div class="nav__view-profile-text">View Profile</div>
+                    </div>
                     <div class="nav__logout" (click)="onLogoutClicked()">
                         <a href="#" class="btn btn-dark">Logout</a>
                     </div>
@@ -28,12 +32,15 @@
         <div class="home__right" *ngIf="sidebarEnabled">
             <app-login class="app-login" *ngIf="loginEnabled && !isUserLoggedIn"></app-login>
             <app-register class="app-login" *ngIf="registerEnabled && !isUserLoggedIn"></app-register>
-            <div *ngIf="(addlUserInfo$ | async) as userVerifyInfo">
+            <div *ngIf="(addlUserInfo$ | async) as addlUserInfo">
                 <app-verify-pin class="app-login" [loggedInUser]="loggedInUser$"
-                    [userDocId]="userVerifyInfo[0].payload.doc.id"
-                    *ngIf="isUserLoggedIn && !userVerifyInfo[0].payload.doc.data().pinVerified">
+                    [userDocId]="addlUserInfo[0].payload.doc.id"
+                    *ngIf="isUserLoggedIn && !addlUserInfo[0].payload.doc.data().pinVerified">
                 </app-verify-pin>
+                <app-basic-profile *ngIf="isUserLoggedIn && addlUserInfo[0].payload.doc.data().pinVerified"
+                    [addlUserInfo]="addlUserInfo"></app-basic-profile>
             </div>
+
         </div>
     </div>
 
