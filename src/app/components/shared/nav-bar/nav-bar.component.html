@@ -1,0 +1,20 @@
+<div *ngIf="(addlUserInfo$ | async) as loggedInUser">
+    <nav class="nav">
+        <div class="nav__menu">
+            <a [routerLink]="'/pilots'" class="nav__menu-link">View Pilots</a>
+            <a class="nav__menu-link">Reunions</a>
+        </div>
+        <div class="nav__actions">
+            <div class="nav__greeting">Hello, {{ loggedInUser[0].payload.doc.data().nickname }}</div>
+            <div class="nav__view-profile">
+                <div class="profile-pic nav__view-profile-pic"
+                    [ngStyle]="{'background-image': 'url(' + getProfilePic(loggedInUser[0].payload.doc.data()) + ')'}">
+                </div>
+                <div class="nav__view-profile-text">View Profile</div>
+            </div>
+            <div class="nav__logout" (click)="onLogoutClicked()">
+                <a href="#" class="btn btn-dark">Logout</a>
+            </div>
+        </div>
+    </nav>
+</div>

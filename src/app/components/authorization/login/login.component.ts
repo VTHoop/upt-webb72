@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../shared/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   successMessage: string;
   emailClicked: boolean;
 
-  constructor(public authService: AuthService, public fb: FormBuilder) {}
+  constructor(public authService: AuthService, public fb: FormBuilder, private router: Router) {}
 
   ngOnInit() {
     this.createForm();

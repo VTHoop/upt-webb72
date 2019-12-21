@@ -5,8 +5,6 @@ import { ValidUsersService } from '../services/valid-users.service';
 import { User } from '../models/user.model';
 
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { ValidUser } from '../models/valid-user.model';
@@ -16,6 +14,8 @@ import { ValidUser } from '../models/valid-user.model';
 })
 export class AuthService {
   loggedInUser;
+  users$: Observable<DocumentChangeAction<User>[]>;
+  verified: boolean;
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -26,6 +26,7 @@ export class AuthService {
   getLoggedInUser() {
     return this.afAuth.authState;
   }
+
 
   // doFacebookLogin() {
   //   const provider = new auth.FacebookAuthProvider();
@@ -68,8 +69,6 @@ export class AuthService {
       middleInitial: validUser.payload.doc.data().middleInitial,
       rank: validUser.payload.doc.data().rank,
       nickname: validUser.payload.doc.data().nickname,
-      cellPhone: validUser.payload.doc.data().cellPhone,
-      homePhone: validUser.payload.doc.data().homePhone,
       hometownCity: validUser.payload.doc.data().hometownCity,
       hometownState: validUser.payload.doc.data().hometownState,
       school: validUser.payload.doc.data().school,

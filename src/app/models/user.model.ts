@@ -9,8 +9,13 @@ export interface User {
   hometownCity: string;
   hometownState: string;
   school: string;
-  homePhone: string;
-  cellPhone: string;
+  homePhone?: string;
+  cellPhone?: string;
+  currentAddress?: string;
+  currentCity?: string;
+  currentState?: string;
+  significantOther?: string;
+  aboutYou?: string;
   registered: boolean;
   pinVerified: boolean;
 }

@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { User, ranks, states } from '../../../models/user.model';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { TigerPhotosService } from '../../../services/tiger-photos.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-basic-profile',
@@ -12,15 +14,20 @@ export class BasicProfileComponent implements OnInit {
   @Input() addlUserInfo: DocumentChangeAction<User>[];
   userInfo: User;
 
+  downloadUrl$: Observable<any>;
+  imageClassProp: string;
+
   objectKeys = Object.keys;
   afRanks;
   states;
 
   profileForm: FormGroup;
 
-  constructor(public fb: FormBuilder) {}
+  constructor(public fb: FormBuilder, public tigerPhotos: TigerPhotosService) {}
 
   ngOnInit() {
+    this.downloadUrl$ = this.tigerPhotos.getTigerPhoto('Hooper');
+    this.downloadUrl$.subscribe(url => (this.imageClassProp = `url('${url}');`));
     this.createForm(this.addlUserInfo[0].payload.doc.data());
     this.afRanks = ranks;
     this.states = states;

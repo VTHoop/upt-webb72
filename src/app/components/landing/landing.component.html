@@ -1,22 +1,5 @@
 <div class="landing landing__background">
-    <div *ngIf="(loggedInUser$ | async) as loggedInUser">
-        <div *ngIf="(addlUserInfo$ | async) as userNavInfo">
-            <nav class="nav" *ngIf="loggedInUser && userNavInfo[0].payload.doc.data().pinVerified">
-                <div class="nav__title"></div>
-                <div class="nav__menu">
-                    <div class="nav__actions"></div>
-                    <div class="nav__greeting">Hello, {{ userNavInfo[0].payload.doc.data().firstName }}</div>
-                    <div class="nav__view-profile">
-                        <div class="profile-pic nav__view-profile-pic"></div>
-                        <div class="nav__view-profile-text">View Profile</div>
-                    </div>
-                    <div class="nav__logout" (click)="onLogoutClicked()">
-                        <a href="#" class="btn btn-dark">Logout</a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
+   <app-nav-bar></app-nav-bar>
     <div class="home">
         <div class="home__left">
             <div class="heading heading-1 landing__title">UPT 72-09 Webb AFB</div>
@@ -33,7 +16,7 @@
             <app-login class="app-login" *ngIf="loginEnabled && !isUserLoggedIn"></app-login>
             <app-register class="app-login" *ngIf="registerEnabled && !isUserLoggedIn"></app-register>
             <div *ngIf="(addlUserInfo$ | async) as addlUserInfo">
-                <app-verify-pin class="app-login" [loggedInUser]="loggedInUser$"
+                <app-verify-pin class="app-login" [userInfo]="addlUserInfo[0].payload.doc.data()"
                     [userDocId]="addlUserInfo[0].payload.doc.id"
                     *ngIf="isUserLoggedIn && !addlUserInfo[0].payload.doc.data().pinVerified">
                 </app-verify-pin>
@@ -43,6 +26,4 @@
 
         </div>
     </div>
-
-
 </div>

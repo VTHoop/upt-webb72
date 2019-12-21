@@ -12,7 +12,6 @@ import { User } from '../../models/user.model';
 })
 export class LandingComponent implements OnInit {
   isUserLoggedIn: boolean;
-  loggedInUser$;
   addlUserInfo$: Observable<DocumentChangeAction<User>[]>;
 
   loginEnabled: boolean;
@@ -24,8 +23,7 @@ export class LandingComponent implements OnInit {
   ngOnInit() {
     this.loginEnabled = false;
     this.registerEnabled = false;
-    this.loggedInUser$ = this.authService.getLoggedInUser();
-    this.loggedInUser$.subscribe(loggedIn => {
+    this.authService.getLoggedInUser().subscribe(loggedIn => {
       if (loggedIn) {
         this.isUserLoggedIn = true;
         this.addlUserInfo$ = this.usersService.getUsers('uid', loggedIn.uid);

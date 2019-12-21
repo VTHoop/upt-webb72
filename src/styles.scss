@@ -127,7 +127,7 @@ a.btn {
   }
 
   &__input {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-family: inherit;
     color: white;
     padding: 1.5rem 1.5rem;
@@ -185,14 +185,22 @@ a.btn {
     font-family: 'Oswald';
     color: white;
     text-transform: uppercase;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     font-weight: 700;
     display: block;
   }
 }
 
+.label {
+  font-family: 'Oswald';
+  color: var(--color-primary-darkened);
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  font-weight: 700;
+  display: block;
+}
+
 .profile-pic {
-  background-image: url('./assets/img/Hooper\ Tiger.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   width: 200px;
