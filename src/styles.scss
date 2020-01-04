@@ -3,6 +3,7 @@
 :root {
   --color-primary: #505b68;
   --color-primary-darkened: #505b68;
+  --color-primary-lightened: #5e6a79;
   --color-gray-light-1: #f8f8f8;
   --color-gray-light-2: #e6e6e6;
 
@@ -127,7 +128,7 @@ a.btn {
   }
 
   &__input {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-family: inherit;
     color: white;
     padding: 1.5rem 1.5rem;
@@ -161,6 +162,10 @@ a.btn {
     //   width: 100%;
     // }
 
+    &__read-only {
+      background-color: var(--color-primary-lightened);
+    }
+
     &:focus {
       outline: none;
       border-bottom: 2px solid yellow;
@@ -185,9 +190,10 @@ a.btn {
     font-family: 'Oswald';
     color: white;
     text-transform: uppercase;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 700;
     display: block;
+    letter-spacing: 0.1rem;
   }
 }
 
@@ -195,9 +201,16 @@ a.btn {
   font-family: 'Oswald';
   color: var(--color-primary-darkened);
   text-transform: uppercase;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
   display: block;
+}
+
+.container {
+  padding: 4rem;
+  max-width: 120rem;
+  margin: 0rem auto;
+  background-color: var(--color-primary-darkened);
 }
 
 .profile-pic {
@@ -207,4 +220,18 @@ a.btn {
   height: 200px;
   border-radius: 50%;
   align-self: center;
+}
+
+.modal {
+  width: 75%;
+  max-width: 130rem;
+  min-height: 80vh;
+  background-color: white;
+  position: absolute;
+  z-index: 10;
+  top: 10vh;
+  left: 12.5%;
+  box-shadow: 0 0.3rem 0.5rem rgba(#4b4b4b, 0.4);
+  display: flex;
+  align-items: stretch;
 }

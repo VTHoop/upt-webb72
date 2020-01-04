@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { DocumentChangeAction } from '@angular/fire/firestore';
+import { Component, OnInit, Input } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { User } from '../../../models/user.model';
 import { AuthService } from '../../../shared/auth.service';
 import { UsersService } from '../../../services/users.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,22 +11,25 @@ import { UsersService } from '../../../services/users.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  loggedInUser: firebase.User;
-  addlUserInfo$: Observable<DocumentChangeAction<User>[]>;
+  currentUser: User;
+  currentUserSubscription: Subscription;
 
-  constructor(public authService: AuthService, public usersService: UsersService) {}
+  @Input() disableActions: boolean;
 
-  ngOnInit() {
-    this.authService.getLoggedInUser().subscribe(loggedIn => {
-      if (loggedIn) {
-        this.loggedInUser = loggedIn;
-        this.addlUserInfo$ = this.usersService.getUsers('uid', loggedIn.uid);
-      }
+  constructor(public authService: AuthService, public usersService: UsersService, public router: Router) {
+    this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
+      this.currentUser = user;
     });
   }
 
+  ngOnInit() {}
+
   getProfilePic(pilot: User) {
     return `../../../../assets/img/tiger_photos/${pilot.lastName}.jpg`;
+  }
+
+  goToProfile() {
+    this.router.navigate(['/profile']);
   }
 
   onLogoutClicked() {

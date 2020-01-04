@@ -11,11 +11,13 @@ export interface User {
   school: string;
   homePhone?: string;
   cellPhone?: string;
-  currentAddress?: string;
+  streetAddress?: string;
   currentCity?: string;
   currentState?: string;
+  currentZip?: string;
   significantOther?: string;
-  aboutYou?: string;
+  myLife?: string;
+  emailPrivate: boolean;
   registered: boolean;
   pinVerified: boolean;
 }

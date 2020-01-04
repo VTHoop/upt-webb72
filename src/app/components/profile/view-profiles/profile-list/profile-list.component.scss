@@ -1,20 +1,4 @@
 .profile-list {
-  min-height: 100vh;
-
-  &__background {
-    min-height: 100vh;
-    background-image: linear-gradient(to right, rgba(gray, 0.8), rgba(darken(gray, 30%), 0.8)),
-      url('../../../../assets/img/t-38.jpg');
-    background-size: cover;
-  }
-
-  &__container {
-    flex: 1;
-    background-color: var(--color-primary-darkened);
-
-    display: flex;
-    flex-direction: column;
-  }
 
   &__title {
     color: white;
@@ -25,12 +9,6 @@
       color: gray;
     }
   }
-}
-
-.container {
-  padding: 4rem;
-  max-width: 120rem;
-  margin: 0rem auto;
 }
 
 .profiles {

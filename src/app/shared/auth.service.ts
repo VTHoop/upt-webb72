@@ -4,7 +4,7 @@ import { UsersService } from '../services/users.service';
 import { ValidUsersService } from '../services/valid-users.service';
 import { User } from '../models/user.model';
 
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { ValidUser } from '../models/valid-user.model';
@@ -17,16 +17,39 @@ export class AuthService {
   users$: Observable<DocumentChangeAction<User>[]>;
   verified: boolean;
 
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+  public currentUserDocId: Observable<string>;
+
   constructor(
     public afAuth: AngularFireAuth,
     public usersService: UsersService,
     public validUsersService: ValidUsersService
-  ) {}
+  ) {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
   getLoggedInUser() {
     return this.afAuth.authState;
   }
 
+  isUserVerified(): boolean {
+    this.getLoggedInUser().subscribe(loggedIn => {
+      if (loggedIn) {
+        this.usersService.getUsers('uid', loggedIn.uid).subscribe(user => {
+          if (user[0].payload.doc.data().pinVerified) {
+            return true;
+          }
+        });
+      }
+    });
+    return false;
+  }
 
   // doFacebookLogin() {
   //   const provider = new auth.FacebookAuthProvider();
@@ -72,10 +95,12 @@ export class AuthService {
       hometownCity: validUser.payload.doc.data().hometownCity,
       hometownState: validUser.payload.doc.data().hometownState,
       school: validUser.payload.doc.data().school,
+      emailPrivate: false,
       registered: true,
       pinVerified: false
     };
     this.usersService.createUser(newUser);
+    this.updateUser(newUser);
     this.validUsersService.updateUserData(credentials.user.email, validUser.payload.doc.id);
   }
 
@@ -95,6 +120,9 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(value.email, value.password).then(
         credentials => {
+          this.usersService.getUsers('uid', credentials.user.uid).subscribe(user => {
+            this.updateUser(user[0].payload.doc.data());
+          });
           resolve(credentials);
         },
         err => reject(err)
@@ -102,7 +130,14 @@ export class AuthService {
     });
   }
 
+  updateUser(user: User) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
+
   doLogout() {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
     return this.afAuth.auth.signOut();
   }
 }

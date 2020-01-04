@@ -1,1 +1,14 @@
-<p>home works!</p>
+<div class="home home__background">
+    <app-nav-bar [disableActions]="true"></app-nav-bar>
+    <div class="home__content">
+        <div class="home__pilots" (click)="goToPilots()">
+            <h3 class="heading heading-3">Pilots</h3>
+        </div>
+        <div class="home__reunions" (click)="goToReunions()">
+            <h3 class="heading heading-3">Reunions</h3>
+        </div>
+        <div class="home__profile" (click)="goToProfile()">
+            <h3 class="heading heading-3">Profile</h3>
+        </div>
+    </div>
+</div>

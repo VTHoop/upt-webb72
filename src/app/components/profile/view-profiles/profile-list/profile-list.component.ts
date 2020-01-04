@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../../services/users.service';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { UsersService } from '../../../../services/users.service';
 import { Observable } from 'rxjs';
-import { User } from '../../../models/user.model';
+import { User } from '../../../../models/user.model';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 
 @Component({
@@ -11,6 +11,7 @@ import { DocumentChangeAction } from '@angular/fire/firestore';
 })
 export class ProfileListComponent implements OnInit {
   pilots$: Observable<DocumentChangeAction<User>[]>;
+  @Output() profileClick: EventEmitter<any> = new EventEmitter();
 
   constructor(public users: UsersService) {}
 
@@ -20,5 +21,9 @@ export class ProfileListComponent implements OnInit {
 
   getProfilePic(pilot: User) {
     return `../../../../assets/img/tiger_photos/${pilot.lastName}.jpg`;
+  }
+
+  openProfile(pilot: User) {
+    this.profileClick.emit(pilot);
   }
 }

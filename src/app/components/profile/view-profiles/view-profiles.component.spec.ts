@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FullProfileComponent } from './full-profile.component';
+import { ViewProfilesComponent } from './view-profiles.component';
 
-describe('FullProfileComponent', () => {
-  let component: FullProfileComponent;
-  let fixture: ComponentFixture<FullProfileComponent>;
+describe('ViewProfilesComponent', () => {
+  let component: ViewProfilesComponent;
+  let fixture: ComponentFixture<ViewProfilesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FullProfileComponent ]
+      declarations: [ ViewProfilesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FullProfileComponent);
+    fixture = TestBed.createComponent(ViewProfilesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

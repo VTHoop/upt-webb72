@@ -1,0 +1,15 @@
+.view-profiles {
+  min-height: 100vh;
+
+  &__background {
+    min-height: 100vh;
+    background-image: linear-gradient(to right, rgba(gray, 0.8), rgba(darken(gray, 30%), 0.8)),
+      url('../../../../assets/img/t-38.jpg');
+    background-size: cover;
+  }
+}
+
+.app-profile-list,
+.app-view-profile {
+  display: block;
+}

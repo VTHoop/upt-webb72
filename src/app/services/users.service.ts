@@ -9,6 +9,7 @@ import {
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
+import { AuthService } from '../shared/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,17 @@ export class UsersService {
     return this.getUserReference(null, null)
       .doc<User>(id)
       .snapshotChanges();
+  }
+
+  setUserData(userKey, value): Promise<void> {
+    return new Promise<any>((resolve, reject) => {
+      this.getUserReference(null, null)
+        .doc(userKey)
+        .set(value)
+        .then(
+          res => resolve(res),
+          err => reject(err)
+        );
+    });
   }
 }

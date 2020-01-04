@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { UsersService } from 'src/app/services/users.service';
 import { ValidUsersService } from 'src/app/services/valid-users.service';
 import { User } from '../../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-verify-pin',
@@ -19,7 +20,7 @@ export class VerifyPinComponent implements OnInit {
   // @Input() loggedInUser: Observable<User>;
   @Input() userInfo: User;
   @Input() userDocId: string;
-  
+
   pinForm: FormGroup;
   errorMessage: string;
   successMessage: string;
@@ -30,7 +31,8 @@ export class VerifyPinComponent implements OnInit {
     public authService: AuthService,
     public usersService: UsersService,
     public validUsersService: ValidUsersService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    public router: Router
   ) {}
 
   ngOnInit() {
@@ -43,6 +45,7 @@ export class VerifyPinComponent implements OnInit {
       if (validUser[0].payload.doc.data().pin === this.pinForm.value.pin) {
         // do not have the doc ID for the current user yet.  Get it and update the doc
         this.usersService.updateUserData(this.userDocId, { pinVerified: true });
+        this.router.navigate(['/home']);
       } else {
         this.errorMessage = 'Invalid pin entered.  Please verify pin and contact support if needed.';
       }

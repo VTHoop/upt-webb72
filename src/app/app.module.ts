@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,10 +18,12 @@ import { FieldStatusComponent } from './components/shared/field-status/field-sta
 import { VerifyPinComponent } from './components/authorization/verify-pin/verify-pin.component';
 import { BasicProfileComponent } from './components/profile/basic-profile/basic-profile.component';
 import { PhonePipe } from './pipes/phone.pipe';
-import { ProfileListComponent } from './components/profile/profile-list/profile-list.component';
+import { ProfileListComponent } from './components/profile/view-profiles/profile-list/profile-list.component';
 import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
-import { FullProfileComponent } from './components/profile/full-profile/full-profile.component';
+import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
+import { ViewProfileComponent } from './components/profile/view-profiles/view-profile/view-profile.component';
+import { ViewProfilesComponent } from './components/profile/view-profiles/view-profiles.component';
 
 @NgModule({
   declarations: [
@@ -35,10 +38,13 @@ import { FullProfileComponent } from './components/profile/full-profile/full-pro
     ProfileListComponent,
     NavBarComponent,
     HomeComponent,
-    FullProfileComponent
+    EditProfileComponent,
+    ViewProfileComponent,
+    ViewProfilesComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

@@ -1,0 +1,57 @@
+.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__background {
+    min-height: 100vh;
+    background-image: linear-gradient(to right, rgba(gray, 0.8), rgba(darken(gray, 30%), 0.8)),
+      url('../../../assets/img/t-38.jpg');
+    background-size: cover;
+  }
+
+  &__content {
+    flex: 1;
+
+    display: flex;
+
+    :not(:last-child) {
+      border-right: 4px solid white;
+    }
+  }
+
+  &__pilots,
+  &__reunions,
+  &__profile {
+    text-align: center;
+    font-size: 3.6rem;
+    color: white;
+    text-shadow: 2px 2px darkgray;
+
+    flex: 0 0 33%;
+    justify-content: center;
+    align-self: stretch;
+
+    display: flex;
+    align-items: center;
+
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 1rem 1rem #4b4b4b;
+    }
+  }
+
+  &__pilots {
+    background: rgba(0, 102, 255, 0.1);
+  }
+
+  &__reunions {
+    background: rgba(255, 255, 67, 0.1);
+  }
+
+  &__profile {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}

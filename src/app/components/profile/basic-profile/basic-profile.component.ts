@@ -14,9 +14,6 @@ export class BasicProfileComponent implements OnInit {
   @Input() addlUserInfo: DocumentChangeAction<User>[];
   userInfo: User;
 
-  downloadUrl$: Observable<any>;
-  imageClassProp: string;
-
   objectKeys = Object.keys;
   afRanks;
   states;
@@ -26,8 +23,6 @@ export class BasicProfileComponent implements OnInit {
   constructor(public fb: FormBuilder, public tigerPhotos: TigerPhotosService) {}
 
   ngOnInit() {
-    this.downloadUrl$ = this.tigerPhotos.getTigerPhoto('Hooper');
-    this.downloadUrl$.subscribe(url => (this.imageClassProp = `url('${url}');`));
     this.createForm(this.addlUserInfo[0].payload.doc.data());
     this.afRanks = ranks;
     this.states = states;
