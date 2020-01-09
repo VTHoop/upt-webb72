@@ -1,8 +1,11 @@
 <div *ngIf="currentUser.pinVerified">
     <nav class="nav">
         <div class="nav__menu">
-            <a [routerLink]="'/pilots'" class="nav__menu-link" *ngIf="!disableActions">View Pilots</a>
-            <a class="nav__menu-link" *ngIf="!disableActions">Reunions</a>
+            <a [routerLink]="['/home']" class="nav__menu-home">UPT 72-09 Webb AFB</a>
+            <div class="nav__menu-links">
+                <a [routerLink]="'/pilots'" class="nav__menu-link" *ngIf="!disableActions">View Pilots</a>
+                <a [routerLink]="'/reunions'" class="nav__menu-link" *ngIf="!disableActions">Reunions</a>
+            </div>
         </div>
         <div class="nav__actions">
             <div class="nav__greeting">Hello, {{ currentUser.nickname }}</div>

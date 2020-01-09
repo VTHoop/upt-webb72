@@ -20,6 +20,6 @@ export class HomeComponent implements OnInit {
   }
 
   goToReunions() {
-    return;
+    this.router.navigate(['/reunions']);
   }
 }

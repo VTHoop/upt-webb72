@@ -1,0 +1,88 @@
+[debug] [2020-01-09T02:49:13.064Z] ----------------------------------------------------------------------
+[debug] [2020-01-09T02:49:13.072Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\patri\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2020-01-09T02:49:13.073Z] CLI Version:   7.11.0
+[debug] [2020-01-09T02:49:13.073Z] Platform:      win32
+[debug] [2020-01-09T02:49:13.073Z] Node Version:  v10.16.3
+[debug] [2020-01-09T02:49:13.077Z] Time:          Wed Jan 08 2020 21:49:13 GMT-0500 (Eastern Standard Time)
+[debug] [2020-01-09T02:49:13.077Z] ----------------------------------------------------------------------
+[debug] [2020-01-09T02:49:13.077Z] 
+[debug] [2020-01-09T02:49:13.111Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-09T02:49:13.113Z] > authorizing via signed-in user
+[debug] [2020-01-09T02:49:13.114Z] [iam] checking project upt-webb72 for permissions ["firebase.projects.get"]
+[debug] [2020-01-09T02:49:13.121Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/upt-webb72:testIamPermissions  
+
+[debug] [2020-01-09T02:49:13.315Z] <<< HTTP RESPONSE 200
+[warn] !  Your requested "node" version "8" doesn't match your global version "10"
+[info] +  functions: Emulator started at http://localhost:5000
+[debug] [2020-01-09T02:49:15.872Z] [functions] Watching "C:\Users\patri\Documents\dev\upt-webb72\functions" for Cloud Functions...
+[debug] [2020-01-09T02:49:15.904Z] DEBUG: [worker-pool] addWorker(~diagnostic~)
+[debug] [2020-01-09T02:49:15.905Z] DEBUG: [worker-pool] Adding worker with key ~diagnostic~, total=1
+[debug] [2020-01-09T02:49:15.905Z] DEBUG: [worker-pool] submitWork(triggerId=)
+[debug] [2020-01-09T02:49:15.906Z] DEBUG: [worker-~diagnostic~-f396237b-5617-40d7-9aae-a54f4a922616]: Assigning socketPath: \\?\pipe\C:\Users\patri\Documents\dev\upt-webb72\functions\24512
+[debug] [2020-01-09T02:49:15.906Z] DEBUG: [worker-~diagnostic~-f396237b-5617-40d7-9aae-a54f4a922616]: BUSY
+[debug] [2020-01-09T02:49:17.441Z] DEBUG: [runtime-status] [24512] Functions runtime initialized. {"cwd":"C:\\Users\\patri\\Documents\\dev\\upt-webb72\\functions","node_version":"10.16.3"}
+[debug] [2020-01-09T02:49:17.447Z] DEBUG: [runtime-status] [24512] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-01-09T02:49:17.476Z] DEBUG: [runtime-status] [24512] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\patri\\Documents\\dev\\upt-webb72\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-01-09T02:49:17.489Z] DEBUG: [runtime-status] [24512] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\patri\\Documents\\dev\\upt-webb72\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-09T02:49:17.494Z] DEBUG: [runtime-status] [24512] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\patri\\Documents\\dev\\upt-webb72\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-09T02:49:18.347Z] [functions[sendPin]] http function initialized (http://localhost:5000/upt-webb72/us-central1/sendPin).
+[info] i  functions: Loaded functions: sendPin
+[debug] [2020-01-09T02:49:18.438Z] DEBUG: [worker-~diagnostic~-f396237b-5617-40d7-9aae-a54f4a922616]: IDLE
+[debug] [2020-01-09T03:02:44.737Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-01-09T03:02:44.739Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-01-09T03:02:44.741Z] Accepted request GET /upt-webb72/us-central1/sendPin --> sendPin
+[debug] [2020-01-09T03:02:44.769Z] DEBUG: [worker-pool] addWorker(sendPin)
+[debug] [2020-01-09T03:02:44.769Z] DEBUG: [worker-pool] Adding worker with key sendPin, total=1
+[debug] [2020-01-09T03:02:44.769Z] DEBUG: [worker-pool] submitWork(triggerId=sendPin)
+[debug] [2020-01-09T03:02:44.770Z] DEBUG: [worker-sendPin-c4730d65-2f41-4d4a-86d1-2ce53355f36b]: Assigning socketPath: \\?\pipe\C:\Users\patri\Documents\dev\upt-webb72\functions\7280
+[debug] [2020-01-09T03:02:44.770Z] DEBUG: [worker-sendPin-c4730d65-2f41-4d4a-86d1-2ce53355f36b]: BUSY
+[debug] [2020-01-09T03:02:46.181Z] DEBUG: [runtime-status] [7280] Functions runtime initialized. {"cwd":"C:\\Users\\patri\\Documents\\dev\\upt-webb72\\functions","node_version":"10.16.3"}
+[debug] [2020-01-09T03:02:46.183Z] DEBUG: [runtime-status] [7280] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true,"pubsub_emulator":true}
+[debug] [2020-01-09T03:02:46.192Z] DEBUG: [runtime-status] [7280] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.9.0","resolution":"C:\\Users\\patri\\Documents\\dev\\upt-webb72\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2020-01-09T03:02:46.196Z] DEBUG: [runtime-status] [7280] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\patri\\Documents\\dev\\upt-webb72\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-09T03:02:46.199Z] DEBUG: [runtime-status] [7280] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.3.0","resolution":"C:\\Users\\patri\\Documents\\dev\\upt-webb72\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2020-01-09T03:02:46.732Z] DEBUG: [runtime-status] [7280] Trigger "sendPin" has been found, beginning invocation!
+[debug] [2020-01-09T03:02:46.733Z] [functions] Beginning execution of "sendPin"
+[debug] [2020-01-09T03:02:46.734Z] DEBUG: [runtime-status] [7280] triggerDefinition {"httpsTrigger":{},"name":"sendPin","entryPoint":"sendPin"}
+[debug] [2020-01-09T03:02:46.734Z] DEBUG: [runtime-status] [7280] Running sendPin in mode HTTPS
+[debug] [2020-01-09T03:02:46.746Z] DEBUG: [runtime-status] [7280] Attempting to listen to socketPath: \\?\pipe\C:\Users\patri\Documents\dev\upt-webb72\functions\7280
+[debug] [2020-01-09T03:02:46.759Z] DEBUG: [functions] Runtime ready! Sending request!
+[debug] [2020-01-09T03:02:46.775Z] DEBUG: [runtime-status] [7280] Ephemeral server handling GET request
+[debug] [2020-01-09T03:02:46.786Z] DEBUG: [runtime-status] [7280] Ephemeral server survived.
+[debug] [2020-01-09T03:02:47.436Z] [functions] Finished "sendPin" in ~1s
+[debug] [2020-01-09T03:02:47.436Z] DEBUG: [worker-sendPin-c4730d65-2f41-4d4a-86d1-2ce53355f36b]: IDLE
+[debug] [2020-01-09T03:02:47.437Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-01-09T03:04:41.120Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-01-09T03:04:41.121Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-01-09T03:04:41.121Z] Accepted request GET /upt-webb72/us-central1/sendPin/?dest=pat.hooper83@gmail.com&pin=9381 --> sendPin
+[debug] [2020-01-09T03:04:41.121Z] DEBUG: [worker-pool] submitWork(triggerId=sendPin)
+[debug] [2020-01-09T03:04:41.122Z] DEBUG: [worker-sendPin-c4730d65-2f41-4d4a-86d1-2ce53355f36b]: Assigning socketPath: \\?\pipe\C:\Users\patri\Documents\dev\upt-webb72\functions\7280
+[debug] [2020-01-09T03:04:41.122Z] DEBUG: [worker-sendPin-c4730d65-2f41-4d4a-86d1-2ce53355f36b]: BUSY
+[debug] [2020-01-09T03:04:41.126Z] DEBUG: [runtime-status] [7280] Trigger "sendPin" has been found, beginning invocation!
+[debug] [2020-01-09T03:04:41.127Z] [functions] Beginning execution of "sendPin"
+[debug] [2020-01-09T03:04:41.128Z] DEBUG: [runtime-status] [7280] triggerDefinition {"httpsTrigger":{},"name":"sendPin","entryPoint":"sendPin"}
+[debug] [2020-01-09T03:04:41.132Z] DEBUG: [runtime-status] [7280] Running sendPin in mode HTTPS
+[debug] [2020-01-09T03:04:41.133Z] DEBUG: [runtime-status] [7280] Attempting to listen to socketPath: \\?\pipe\C:\Users\patri\Documents\dev\upt-webb72\functions\7280
+[debug] [2020-01-09T03:04:41.152Z] DEBUG: [functions] Runtime ready! Sending request!
+[debug] [2020-01-09T03:04:41.177Z] DEBUG: [runtime-status] [7280] Ephemeral server handling GET request
+[debug] [2020-01-09T03:04:41.185Z] DEBUG: [runtime-status] [7280] Ephemeral server survived.
+[debug] [2020-01-09T03:04:42.377Z] [functions] Finished "sendPin" in ~1s
+[debug] [2020-01-09T03:04:42.378Z] DEBUG: [worker-sendPin-c4730d65-2f41-4d4a-86d1-2ce53355f36b]: IDLE
+[debug] [2020-01-09T03:04:42.378Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2020-01-09T03:06:08.781Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-01-09T03:06:08.782Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-01-09T03:06:08.782Z] Accepted request GET /upt-webb72/us-central1/sendPin/?dest=pat.hooper83@gmail.com&pin=9381 --> sendPin
+[debug] [2020-01-09T03:06:08.782Z] DEBUG: [worker-pool] submitWork(triggerId=sendPin)
+[debug] [2020-01-09T03:06:08.782Z] DEBUG: [worker-sendPin-c4730d65-2f41-4d4a-86d1-2ce53355f36b]: Assigning socketPath: \\?\pipe\C:\Users\patri\Documents\dev\upt-webb72\functions\7280
+[debug] [2020-01-09T03:06:08.782Z] DEBUG: [worker-sendPin-c4730d65-2f41-4d4a-86d1-2ce53355f36b]: BUSY
+[debug] [2020-01-09T03:06:08.783Z] DEBUG: [runtime-status] [7280] Trigger "sendPin" has been found, beginning invocation!
+[debug] [2020-01-09T03:06:08.783Z] [functions] Beginning execution of "sendPin"
+[debug] [2020-01-09T03:06:08.783Z] DEBUG: [runtime-status] [7280] triggerDefinition {"httpsTrigger":{},"name":"sendPin","entryPoint":"sendPin"}
+[debug] [2020-01-09T03:06:08.784Z] DEBUG: [runtime-status] [7280] Running sendPin in mode HTTPS
+[debug] [2020-01-09T03:06:08.784Z] DEBUG: [runtime-status] [7280] Attempting to listen to socketPath: \\?\pipe\C:\Users\patri\Documents\dev\upt-webb72\functions\7280
+[debug] [2020-01-09T03:06:08.786Z] DEBUG: [functions] Runtime ready! Sending request!
+[debug] [2020-01-09T03:06:08.790Z] DEBUG: [runtime-status] [7280] Ephemeral server handling GET request
+[debug] [2020-01-09T03:06:08.790Z] DEBUG: [runtime-status] [7280] Ephemeral server survived.
+[debug] [2020-01-09T03:06:10.181Z] [functions] Finished "sendPin" in ~1s
+[debug] [2020-01-09T03:06:10.183Z] DEBUG: [worker-sendPin-c4730d65-2f41-4d4a-86d1-2ce53355f36b]: IDLE
+[debug] [2020-01-09T03:06:10.183Z] [work-queue] {"queueLength":0,"workRunningCount":0}

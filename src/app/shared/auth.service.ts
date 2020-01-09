@@ -8,6 +8,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { ValidUser } from '../models/valid-user.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +22,13 @@ export class AuthService {
   public currentUser: Observable<User>;
   public currentUserDocId: Observable<string>;
 
+  baseSendPinUrl = 'https://us-central1-upt-webb72.cloudfunctions.net/sendPin';
+
   constructor(
     public afAuth: AngularFireAuth,
     public usersService: UsersService,
-    public validUsersService: ValidUsersService
+    public validUsersService: ValidUsersService,
+    private http: HttpClient
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -102,6 +106,9 @@ export class AuthService {
     this.usersService.createUser(newUser);
     this.updateUser(newUser);
     this.validUsersService.updateUserData(credentials.user.email, validUser.payload.doc.id);
+
+    const sendPinUrl = `${this.baseSendPinUrl}?dest=${credentials.user.email}&pin=${validUser.payload.doc.data().pin}`;
+    this.http.get(sendPinUrl).subscribe();
   }
 
   doRegister(value, validUser: DocumentChangeAction<ValidUser>) {

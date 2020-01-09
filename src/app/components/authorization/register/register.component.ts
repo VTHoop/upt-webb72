@@ -6,6 +6,7 @@ import { ValidUsersService } from '../../../services/valid-users.service';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { ValidUser } from 'src/app/models/valid-user.model';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -17,12 +18,13 @@ export class RegisterComponent implements OnInit {
   errorMessage: string;
   successMessage: string;
   validUsers$: Observable<DocumentChangeAction<ValidUser>[]>;
+
   // isValidUser: boolean;
 
   constructor(
     public authService: AuthService,
     public validUsersService: ValidUsersService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
   ) {}
 
   ngOnInit() {
@@ -57,7 +59,6 @@ export class RegisterComponent implements OnInit {
   tryRegister(value, validUser: DocumentChangeAction<ValidUser>) {
     this.authService.doRegister(value, validUser).then(
       res => {
-        console.log(res);
         this.errorMessage = '';
         this.successMessage = 'Your account has been created';
       },

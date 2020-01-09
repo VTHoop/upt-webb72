@@ -5,14 +5,14 @@
     <div class="register__form-inputs">
       <div class="email-register">
         <div class="form__group">
-          <label for="email" class="form__label">Email</label>
+          <label for="email" class="form__label">Your Email</label>
           <div class="form__input--with-icon">
             <input type="email" formControlName="email" class="form__input " required>
             <app-field-status [status]="registerForm.controls.email"></app-field-status>
           </div>
         </div>
         <div class="form__group">
-          <label for="password" class="form__label">Password</label>
+          <label for="password" class="form__label">Enter New Password</label>
           <div class="form__input--with-icon">
             <input type="password" class="form__input" formControlName="password" required>
             <app-field-status [status]="registerForm.controls.password"></app-field-status>

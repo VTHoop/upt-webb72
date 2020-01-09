@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFireModule } from '@angular/fire';
 
@@ -14,16 +15,19 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
 import { LandingComponent } from './components/landing/landing.component';
-import { FieldStatusComponent } from './components/shared/field-status/field-status.component';
+import { FieldStatusComponent } from './components/shared/components/field-status/field-status.component';
 import { VerifyPinComponent } from './components/authorization/verify-pin/verify-pin.component';
 import { BasicProfileComponent } from './components/profile/basic-profile/basic-profile.component';
 import { PhonePipe } from './pipes/phone.pipe';
 import { ProfileListComponent } from './components/profile/view-profiles/profile-list/profile-list.component';
-import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
+import { NavBarComponent } from './components/shared/components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
 import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './components/profile/view-profiles/view-profile/view-profile.component';
 import { ViewProfilesComponent } from './components/profile/view-profiles/view-profiles.component';
+import { ReunionsComponent } from './components/reunions/reunions.component';
+import { ReunionListComponent } from './components/reunions/reunion-list/reunion-list.component';
+import { ReunionViewComponent } from './components/reunions/reunion-view/reunion-view.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,10 @@ import { ViewProfilesComponent } from './components/profile/view-profiles/view-p
     HomeComponent,
     EditProfileComponent,
     ViewProfileComponent,
-    ViewProfilesComponent
+    ViewProfilesComponent,
+    ReunionsComponent,
+    ReunionListComponent,
+    ReunionViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +55,7 @@ import { ViewProfilesComponent } from './components/profile/view-profiles/view-p
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireStorageModule,

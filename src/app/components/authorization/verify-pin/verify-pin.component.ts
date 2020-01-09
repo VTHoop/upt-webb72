@@ -45,6 +45,7 @@ export class VerifyPinComponent implements OnInit {
       if (validUser[0].payload.doc.data().pin === this.pinForm.value.pin) {
         // do not have the doc ID for the current user yet.  Get it and update the doc
         this.usersService.updateUserData(this.userDocId, { pinVerified: true });
+        this.authService.updateUser({...JSON.parse(localStorage.getItem('currentUser')), pinVerified: true});
         this.router.navigate(['/home']);
       } else {
         this.errorMessage = 'Invalid pin entered.  Please verify pin and contact support if needed.';
