@@ -1,8 +1,9 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { UsersService } from '../../../../services/users.service';
+import { UsersService } from '../../../services/users.service';
 import { Observable } from 'rxjs';
-import { User } from '../../../../models/user.model';
+import { User } from '../../../models/user.model';
 import { DocumentChangeAction } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-list',
@@ -13,7 +14,7 @@ export class ProfileListComponent implements OnInit {
   pilots$: Observable<DocumentChangeAction<User>[]>;
   @Output() profileClick: EventEmitter<any> = new EventEmitter();
 
-  constructor(public users: UsersService) {}
+  constructor(public users: UsersService, public router: Router) {}
 
   ngOnInit() {
     this.pilots$ = this.users.getUsers(null, null);
@@ -24,6 +25,6 @@ export class ProfileListComponent implements OnInit {
   }
 
   openProfile(pilot: User) {
-    this.profileClick.emit(pilot);
+    this.router.navigate(['/pilots', pilot.uid]);
   }
 }

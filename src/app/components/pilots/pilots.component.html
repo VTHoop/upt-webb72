@@ -1,0 +1,6 @@
+<div class="pilots pilots__background">
+  <app-nav-bar></app-nav-bar>
+  <div [@routeAnimations]="getAnimationData(routerOutlet)">
+    <router-outlet #routerOutlet="outlet"></router-outlet>
+  </div>
+</div>

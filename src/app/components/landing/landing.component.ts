@@ -4,6 +4,7 @@ import { UsersService } from '../../services/users.service';
 import { Observable } from 'rxjs';
 import { DocumentChangeAction } from '@angular/fire/firestore';
 import { User } from '../../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing',
@@ -12,45 +13,27 @@ import { User } from '../../models/user.model';
 })
 export class LandingComponent implements OnInit {
   isUserLoggedIn: boolean;
-  addlUserInfo$: Observable<DocumentChangeAction<User>[]>;
-
-  loginEnabled: boolean;
-  registerEnabled: boolean;
   sidebarEnabled: boolean;
 
-  constructor(public authService: AuthService, public usersService: UsersService) {}
+  constructor(public authService: AuthService, public usersService: UsersService, private router: Router) {}
 
   ngOnInit() {
-    this.loginEnabled = false;
-    this.registerEnabled = false;
     this.authService.getLoggedInUser().subscribe(loggedIn => {
       if (loggedIn) {
+        this.usersService.getUsers('uid', loggedIn.uid).subscribe(users => {
+          if (!users[0].payload.doc.data().pinVerified) {
+            this.router.navigate(['verify-pin']);
+            this.sidebarEnabled = true;
+          }
+        });
         this.isUserLoggedIn = true;
-        this.addlUserInfo$ = this.usersService.getUsers('uid', loggedIn.uid);
-        this.sidebarEnabled = true;
       } else {
         this.isUserLoggedIn = false;
-        this.sidebarEnabled = false;
       }
     });
   }
 
-  onLoginClicked() {
-    this.loginEnabled = true;
-    this.registerEnabled = false;
+  onActionClicked() {
     this.sidebarEnabled = true;
-  }
-
-  onRegisterClicked() {
-    this.loginEnabled = false;
-    this.registerEnabled = true;
-    this.sidebarEnabled = true;
-  }
-
-  onLogoutClicked() {
-    this.loginEnabled = false;
-    this.registerEnabled = false;
-    this.sidebarEnabled = false;
-    this.authService.doLogout();
   }
 }

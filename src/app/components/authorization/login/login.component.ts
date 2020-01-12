@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../../../shared/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,14 @@ export class LoginComponent implements OnInit {
   successMessage: string;
   emailClicked: boolean;
 
-  constructor(public authService: AuthService, public fb: FormBuilder, private router: Router) {}
+  pinVerified: boolean;
+
+  constructor(
+    public authService: AuthService,
+    public users: UsersService,
+    public fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.createForm();
@@ -35,10 +43,17 @@ export class LoginComponent implements OnInit {
 
   trylogin(value) {
     this.authService.doLogin(value).then(
-      res => {
-        this.errorMessage = '';
-        this.successMessage = 'Your account has been created';
-        this.router.navigate(['/home']);
+      (res: firebase.auth.UserCredential) => {
+        this.users.getUsers('uid', res.user.uid).subscribe(users => {
+          this.pinVerified = users[0].payload.doc.data().pinVerified;
+          this.errorMessage = '';
+          this.successMessage = 'You have successfully logged in';
+          if (this.pinVerified) {
+            this.router.navigate(['/home']);
+          } else {
+            this.router.navigate(['/verify-pin']);
+          }
+        });
       },
       err => {
         this.errorMessage = err.message;

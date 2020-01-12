@@ -7,21 +7,20 @@
                 classmates and upcoming reunions.
             </div>
             <div class="landing__actions" *ngIf="!isUserLoggedIn">
-                <a href="#" class="btn btn-dark landing__action" (click)="onRegisterClicked()">Register</a>
-                <a href="#" class="btn btn-light landing__action" (click)="onLoginClicked()">Login</a>
+                <a [routerLink]="['/register']" class="btn btn-dark landing__action" (click)="onActionClicked()">Register</a>
+                <a [routerLink]="['/login']"  class="btn btn-light landing__action" (click)="onActionClicked()">Login</a>
             </div>
         </div>
         <div class="home__right" *ngIf="sidebarEnabled">
-            <app-login class="app-login" *ngIf="loginEnabled && !isUserLoggedIn"></app-login>
+            <router-outlet></router-outlet>
+            <!-- <app-login class="app-login" *ngIf="loginEnabled && !isUserLoggedIn"></app-login>
             <app-register class="app-login" *ngIf="registerEnabled && !isUserLoggedIn"></app-register>
             <div *ngIf="(addlUserInfo$ | async) as addlUserInfo">
                 <app-verify-pin class="app-login" [userInfo]="addlUserInfo[0].payload.doc.data()"
                     [userDocId]="addlUserInfo[0].payload.doc.id"
                     *ngIf="isUserLoggedIn && !addlUserInfo[0].payload.doc.data().pinVerified">
                 </app-verify-pin>
-                <app-basic-profile *ngIf="isUserLoggedIn && addlUserInfo[0].payload.doc.data().pinVerified"
-                    [addlUserInfo]="addlUserInfo"></app-basic-profile>
-            </div>
+            </div> -->
 
         </div>
     </div>

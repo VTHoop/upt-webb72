@@ -17,49 +17,44 @@ import { environment } from 'src/environments/environment';
 import { LandingComponent } from './components/landing/landing.component';
 import { FieldStatusComponent } from './components/shared/components/field-status/field-status.component';
 import { VerifyPinComponent } from './components/authorization/verify-pin/verify-pin.component';
-import { BasicProfileComponent } from './components/profile/basic-profile/basic-profile.component';
 import { PhonePipe } from './pipes/phone.pipe';
-import { ProfileListComponent } from './components/profile/view-profiles/profile-list/profile-list.component';
 import { NavBarComponent } from './components/shared/components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
-import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
-import { ViewProfileComponent } from './components/profile/view-profiles/view-profile/view-profile.component';
-import { ViewProfilesComponent } from './components/profile/view-profiles/view-profiles.component';
 import { ReunionsComponent } from './components/reunions/reunions.component';
 import { ReunionListComponent } from './components/reunions/reunion-list/reunion-list.component';
 import { ReunionViewComponent } from './components/reunions/reunion-view/reunion-view.component';
+import { PilotsComponent } from './components/pilots/pilots.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { PilotsModule } from './components/pilots/pilots.module';
+import { LandingModule } from './components/landing/landing.module';
+import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    LandingComponent,
-    FieldStatusComponent,
-    VerifyPinComponent,
-    BasicProfileComponent,
+    PilotsComponent,
+    EditProfileComponent,
     PhonePipe,
-    ProfileListComponent,
     NavBarComponent,
     HomeComponent,
-    EditProfileComponent,
-    ViewProfileComponent,
-    ViewProfilesComponent,
     ReunionsComponent,
     ReunionListComponent,
     ReunionViewComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    PilotsModule,
+    LandingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireStorageModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

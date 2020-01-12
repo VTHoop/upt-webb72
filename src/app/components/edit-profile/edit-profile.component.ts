@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '../../../shared/auth.service';
-import { User, ranks, states } from '../../../models/user.model';
+import { AuthService } from '../../shared/auth.service';
+import { User, ranks, states } from '../../models/user.model';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { UsersService } from '../../../services/users.service';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-edit-profile',

@@ -126,7 +126,7 @@ export class AuthService {
   doLogin(value) {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(value.email, value.password).then(
-        credentials => {
+        (credentials: firebase.auth.UserCredential) => {
           this.usersService.getUsers('uid', credentials.user.uid).subscribe(user => {
             this.updateUser(user[0].payload.doc.data());
           });

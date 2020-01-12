@@ -2,16 +2,18 @@ select {
   transform: translateY(-1px); //is lower than all other inputs for some reason
 }
 
-.full-profile {
-  min-height: 100vh;
+.view-profile {
+  &__navigation {
+    margin-bottom: 3rem;
 
-  &__background {
-    min-height: 100vh;
-    background-image: linear-gradient(to right, rgba(gray, 0.8), rgba(darken(gray, 30%), 0.8)),
-      url('../../../../assets/img/t-38.jpg');
-    background-size: cover;
+    &--back {
+      display: flex;
+      align-items: center;
+      font-size: 1.6rem;
+      color: var(--color-accent);
+      cursor: pointer;
+    }
   }
-
   &__title {
     color: white;
     margin: 1rem 0;
