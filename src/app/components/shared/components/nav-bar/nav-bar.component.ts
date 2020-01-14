@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from '../../../../models/user.model';
-import { AuthService } from '../../../../shared/auth.service';
+import { AuthService } from '../../../../shared/services/auth.service';
 import { UsersService } from '../../../../services/users.service';
 import { Router } from '@angular/router';
 

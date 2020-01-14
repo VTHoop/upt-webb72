@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '../../shared/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { User, ranks, states } from '../../models/user.model';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';

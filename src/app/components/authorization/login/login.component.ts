@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AuthService } from '../../../shared/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
@@ -7,14 +7,13 @@ import { UsersService } from '../../../services/users.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string;
   successMessage: string;
-  emailClicked: boolean;
+  // emailClicked: boolean;
 
   pinVerified: boolean;
 
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.emailClicked = false;
+    // this.emailClicked = false;
   }
 
   onSubmit() {
@@ -49,7 +48,8 @@ export class LoginComponent implements OnInit {
           this.errorMessage = '';
           this.successMessage = 'You have successfully logged in';
           if (this.pinVerified) {
-            this.router.navigate(['/home']);
+            const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/home';
+            this.router.navigateByUrl(redirect);
           } else {
             this.router.navigate(['/verify-pin']);
           }
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  onEmailClicked() {
-    this.emailClicked = true;
-  }
+  // onEmailClicked() {
+  //   this.emailClicked = true;
+  // }
 }

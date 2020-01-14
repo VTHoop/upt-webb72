@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
-import { UsersService } from '../services/users.service';
-import { ValidUsersService } from '../services/valid-users.service';
-import { User } from '../models/user.model';
+import { UsersService } from '../../services/users.service';
+import { ValidUsersService } from '../../services/valid-users.service';
+import { User } from '../../models/user.model';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DocumentChangeAction } from '@angular/fire/firestore';
-import { ValidUser } from '../models/valid-user.model';
+import { ValidUser } from '../../models/valid-user.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -17,6 +17,7 @@ export class AuthService {
   loggedInUser;
   users$: Observable<DocumentChangeAction<User>[]>;
   verified: boolean;
+  redirectUrl: string;
 
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
@@ -145,6 +146,7 @@ export class AuthService {
   doLogout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.redirectUrl = null;
     return this.afAuth.auth.signOut();
   }
 }

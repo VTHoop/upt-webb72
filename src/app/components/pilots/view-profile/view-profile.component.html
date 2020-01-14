@@ -17,8 +17,9 @@
         <div class="view-profile__inputs">
             <div class="view-profile__section-subtitle">Contact</div>
             <div class="view-profile__section">
-
-                <input type="email" formControlName="email" class="form__input form__input__read-only">
+                <div class="view-profile__email" *ngIf="!pilots[0].payload.doc.data().emailPrivate">
+                    <input type="email" formControlName="email" class="form__input form__input__read-only">
+                </div>
                 <div class="form__group-layout form__group-layout--phone">
                     <div class="form__group">
                         <label for="homePhone" class="form__label">Home Phone</label>

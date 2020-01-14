@@ -8,15 +8,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/authorization/login/login.component';
-import { RegisterComponent } from './components/authorization/register/register.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
-import { LandingComponent } from './components/landing/landing.component';
-import { FieldStatusComponent } from './components/shared/components/field-status/field-status.component';
-import { VerifyPinComponent } from './components/authorization/verify-pin/verify-pin.component';
 import { PhonePipe } from './pipes/phone.pipe';
 import { NavBarComponent } from './components/shared/components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';

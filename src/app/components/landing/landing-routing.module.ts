@@ -4,11 +4,14 @@ import { LandingComponent } from './landing.component';
 import { LoginComponent } from '../authorization/login/login.component';
 import { RegisterComponent } from '../authorization/register/register.component';
 import { VerifyPinComponent } from '../authorization/verify-pin/verify-pin.component';
+import { IsLoggedIn } from '../../shared/resolvers/is-logged-in';
+import { AuthGuard } from 'src/app/shared/guards/auth.guard';
 
 const landingRoutes: Routes = [
   {
     path: '',
     component: LandingComponent,
+    resolve: [IsLoggedIn],
     children: [
       {
         path: 'login',

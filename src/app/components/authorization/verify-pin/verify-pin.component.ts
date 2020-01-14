@@ -5,7 +5,7 @@ import { DocumentChangeAction } from '@angular/fire/firestore';
 import { Observable, Subscription } from 'rxjs';
 
 import { ValidUser } from 'src/app/models/valid-user.model';
-import { AuthService } from 'src/app/shared/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
 import { ValidUsersService } from 'src/app/services/valid-users.service';
 import { Router } from '@angular/router';

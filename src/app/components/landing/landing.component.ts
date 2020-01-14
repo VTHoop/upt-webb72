@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { AuthService } from '../../shared/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { UsersService } from '../../services/users.service';
 import { Observable } from 'rxjs';
 import { DocumentChangeAction } from '@angular/fire/firestore';
@@ -31,6 +31,7 @@ export class LandingComponent implements OnInit {
         this.isUserLoggedIn = false;
       }
     });
+    this.router.url === '/login' || this.router.url === '/register' ? this.sidebarEnabled = true : this.sidebarEnabled = false;
   }
 
   onActionClicked() {
