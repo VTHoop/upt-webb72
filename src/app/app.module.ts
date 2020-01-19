@@ -14,28 +14,24 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
-import { PhonePipe } from './pipes/phone.pipe';
 import { NavBarComponent } from './components/shared/components/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
-import { ReunionsComponent } from './components/reunions/reunions.component';
-import { ReunionListComponent } from './components/reunions/reunion-list/reunion-list.component';
-import { ReunionViewComponent } from './components/reunions/reunion-view/reunion-view.component';
 import { PilotsComponent } from './components/pilots/pilots.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { PilotsModule } from './components/pilots/pilots.module';
 import { LandingModule } from './components/landing/landing.module';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
+import { ReunionsModule } from './components/reunions/reunions.module';
+import { ReunionsComponent } from './components/reunions/reunions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PilotsComponent,
+    ReunionsComponent,
     EditProfileComponent,
     NavBarComponent,
     HomeComponent,
-    ReunionsComponent,
-    ReunionListComponent,
-    ReunionViewComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -45,6 +41,7 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
     FormsModule,
     ReactiveFormsModule,
     PilotsModule,
+    ReunionsModule,
     LandingModule,
     HttpClientModule,
     ToastrModule.forRoot(),
