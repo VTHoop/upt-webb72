@@ -4,8 +4,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AutosizeModule } from 'ngx-autosize';
 
 import { AngularFireModule } from '@angular/fire';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -29,7 +31,6 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
     AppComponent,
     PilotsComponent,
     EditProfileComponent,
-    PhonePipe,
     NavBarComponent,
     HomeComponent,
     ReunionsComponent,
@@ -38,6 +39,7 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
     PageNotFoundComponent
   ],
   imports: [
+    AutosizeModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -45,6 +47,7 @@ import { PageNotFoundComponent } from './components/shared/page-not-found/page-n
     PilotsModule,
     LandingModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireStorageModule,

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 import { UsersService } from '../../services/users.service';
 import { ValidUsersService } from '../../services/valid-users.service';
-import { User } from '../../models/user.model';
+import { User, UserId } from '../../models/user.model';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { DocumentChangeAction } from '@angular/fire/firestore';
-import { ValidUser } from '../../models/valid-user.model';
+import { DocumentChangeAction, DocumentReference } from '@angular/fire/firestore';
+import { ValidUser, ValidUserId } from '../../models/valid-user.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -15,12 +15,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
   loggedInUser;
-  users$: Observable<DocumentChangeAction<User>[]>;
   verified: boolean;
   redirectUrl: string;
 
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<UserId>;
+  public currentUser: Observable<UserId>;
   public currentUserDocId: Observable<string>;
 
   baseSendPinUrl = 'https://us-central1-upt-webb72.cloudfunctions.net/sendPin';
@@ -31,7 +30,7 @@ export class AuthService {
     public validUsersService: ValidUsersService,
     private http: HttpClient
   ) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<UserId>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -47,7 +46,7 @@ export class AuthService {
     this.getLoggedInUser().subscribe(loggedIn => {
       if (loggedIn) {
         this.usersService.getUsers('uid', loggedIn.uid).subscribe(user => {
-          if (user[0].payload.doc.data().pinVerified) {
+          if (user[0].pinVerified) {
             return true;
           }
         });
@@ -88,31 +87,31 @@ export class AuthService {
   //   );
   // }
 
-  private createNewUser(credentials, validUser) {
+  private async createNewUser(credentials, validUser: ValidUserId) {
     const newUser: User = {
       uid: credentials.user.uid,
       email: credentials.user.email,
-      firstName: validUser.payload.doc.data().firstName,
-      lastName: validUser.payload.doc.data().lastName,
-      middleInitial: validUser.payload.doc.data().middleInitial,
-      rank: validUser.payload.doc.data().rank,
-      nickname: validUser.payload.doc.data().nickname,
-      hometownCity: validUser.payload.doc.data().hometownCity,
-      hometownState: validUser.payload.doc.data().hometownState,
-      school: validUser.payload.doc.data().school,
+      firstName: validUser.firstName,
+      lastName: validUser.lastName,
+      middleInitial: validUser.middleInitial,
+      rank: validUser.rank,
+      nickname: validUser.nickname,
+      hometownCity: validUser.hometownCity,
+      hometownState: validUser.hometownState,
+      school: validUser.school,
       emailPrivate: false,
       registered: true,
       pinVerified: false
     };
-    this.usersService.createUser(newUser);
-    this.updateUser(newUser);
-    this.validUsersService.updateUserData(credentials.user.email, validUser.payload.doc.id);
+    const newUserReference: DocumentReference = await this.usersService.createUser(newUser);
+    this.updateUser({ ...newUser, id: newUserReference.id });
+    await this.validUsersService.updateUserData(credentials.user.email, validUser.id);
 
-    const sendPinUrl = `${this.baseSendPinUrl}?dest=${credentials.user.email}&pin=${validUser.payload.doc.data().pin}`;
+    const sendPinUrl = `${this.baseSendPinUrl}?dest=${credentials.user.email}&pin=${validUser.pin}`;
     this.http.get(sendPinUrl).subscribe();
   }
 
-  doRegister(value, validUser: DocumentChangeAction<ValidUser>) {
+  doRegister(value, validUser: ValidUserId) {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.createUserWithEmailAndPassword(value.email, value.password).then(
         credentials => {
@@ -128,8 +127,8 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(value.email, value.password).then(
         (credentials: firebase.auth.UserCredential) => {
-          this.usersService.getUsers('uid', credentials.user.uid).subscribe(user => {
-            this.updateUser(user[0].payload.doc.data());
+          this.usersService.getUsers('uid', credentials.user.uid).subscribe((user: UserId[]) => {
+            this.updateUser(user[0]);
           });
           resolve(credentials);
         },
@@ -138,7 +137,7 @@ export class AuthService {
     });
   }
 
-  updateUser(user: User) {
+  updateUser(user: UserId) {
     localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }

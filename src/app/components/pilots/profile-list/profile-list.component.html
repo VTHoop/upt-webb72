@@ -4,26 +4,26 @@
         <input type="text" name="pilotSearch" class="form__input profile-list__search" placeholder="Search pilots">
     </div>
     <div class="profiles" *ngIf="(pilots$ | async) as pilots">
-        <div class="pilot" *ngFor="let pilot of pilots" (click)=openProfile(pilot.payload.doc.data())>
+        <div class="pilot" *ngFor="let pilot of pilots" (click)=openProfile(pilot)>
             <div class="main-info">
                 <div class="profile-pic main-info__profile-pic"
-                    [ngStyle]="{'background-image': 'url(' + getProfilePic(pilot.payload.doc.data()) + ')'}"></div>
+                    [ngStyle]="{'background-image': 'url(' + getProfilePic(pilot) + ')'}"></div>
                 <div class="main-info__name">
                     <div class="main-info__name--full-name">
-                        {{ pilot.payload.doc.data().rank }} {{ pilot.payload.doc.data().firstName }}
-                        {{ pilot.payload.doc.data().middleInitial }} {{ pilot.payload.doc.data().lastName }}
+                        {{ pilot.rank }} {{ pilot.firstName }}
+                        {{ pilot.middleInitial }} {{ pilot.lastName }}
                     </div>
-                    <div class="main-info__name--nickname">"{{ pilot.payload.doc.data().nickname }}"</div>
+                    <div class="main-info__name--nickname">"{{ pilot.nickname }}"</div>
                 </div>
             </div>
             <div class="school">
                 <div class="label pilot__label">School</div>
-                <div class="pilot__info">{{ pilot.payload.doc.data().school }}</div>
+                <div class="pilot__info">{{ pilot.school }}</div>
             </div>
             <div class="hometown">
                 <div class="label pilot__label">Hometown</div>
-                <div class="pilot__info">{{ pilot.payload.doc.data().hometownCity }},
-                    {{ pilot.payload.doc.data().hometownState }}</div>
+                <div class="pilot__info">{{ pilot.hometownCity }},
+                    {{ pilot.hometownState }}</div>
             </div>
         </div>
     </div>

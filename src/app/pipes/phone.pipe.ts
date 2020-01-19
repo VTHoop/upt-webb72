@@ -14,6 +14,6 @@ export class PhonePipe implements PipeTransform {
     const areaCode = value.slice(0, 3);
     const phoneNum = value.slice(3);
     const phoneNumFormatted = phoneNum.slice(0, 3) + '-' + phoneNum.slice(3);
-    return `(${areaCode})${phoneNumFormatted}`;
+    return `(${areaCode}) ${phoneNumFormatted}`;
   }
 }

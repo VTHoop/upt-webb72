@@ -1,8 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { UsersService } from '../../../services/users.service';
 import { Observable } from 'rxjs';
-import { User } from '../../../models/user.model';
-import { DocumentChangeAction } from '@angular/fire/firestore';
+import { UserId } from '../../../models/user.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile-list.component.scss']
 })
 export class ProfileListComponent implements OnInit {
-  pilots$: Observable<DocumentChangeAction<User>[]>;
+  pilots$: Observable<UserId[]>;
   @Output() profileClick: EventEmitter<any> = new EventEmitter();
 
   constructor(public users: UsersService, public router: Router) {}
@@ -20,11 +19,11 @@ export class ProfileListComponent implements OnInit {
     this.pilots$ = this.users.getUsers(null, null);
   }
 
-  getProfilePic(pilot: User) {
+  getProfilePic(pilot: UserId) {
     return `../../../../assets/img/tiger_photos/${pilot.lastName}.jpg`;
   }
 
-  openProfile(pilot: User) {
+  openProfile(pilot: UserId) {
     this.router.navigate(['/pilots', pilot.uid]);
   }
 }

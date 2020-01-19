@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-import { User, ranks, states } from '../../models/user.model';
+import { User, ranks, states, UserId } from '../../models/user.model';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
+import { ToastrService } from 'ngx-toastr';
+import { first, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-profile',
@@ -11,7 +13,7 @@ import { UsersService } from '../../services/users.service';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
-  currentUser: User;
+  currentUser: UserId;
   currentUserSubscription: Subscription;
 
   fullProfileForm: FormGroup;
@@ -20,7 +22,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   afRanks;
   states;
 
-  constructor(public authService: AuthService, public fb: FormBuilder, public usersService: UsersService) {
+  constructor(
+    public authService: AuthService,
+    public fb: FormBuilder,
+    public usersService: UsersService,
+    private toastr: ToastrService
+  ) {
     this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
     });
@@ -33,15 +40,21 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(value: User) {
-    this.usersService.getUsers('uid', this.currentUser.uid).subscribe(users => {
-      this.usersService.updateUserData(users[0].payload.doc.id, value).then(() => {
-        const updatedUserData: User = {
-          ...this.currentUser,
-          ...value
-        };
-        this.authService.updateUser(updatedUserData);
+    this.usersService
+      .getUserById(this.currentUser.id)
+      .pipe(take(1))
+      .subscribe(user => {
+          this.usersService.updateUserData(user.id, value).then(res => {
+            this.toastr.success(res);
+            const updatedUserData: UserId = {
+              ...this.currentUser,
+              ...value
+            };
+            this.authService.updateUser(updatedUserData);
+            this.fullProfileForm.markAsPristine();
+            this.fullProfileForm.markAsUntouched();
+          });
       });
-    });
   }
 
   createForm(user: User) {

@@ -22,9 +22,12 @@ export interface User {
   pinVerified: boolean;
 }
 
+export interface UserId extends User {
+  id: string;
+}
+
 export const ranks = {
-  '2d Lt': 'Second Lieutenant',
-  '1st L': 'First Lieutenant',
+  Lt: 'Lieutenant',
   Capt: 'Captain',
   Maj: 'Major',
   'Lt Co': 'Lieutenant Colonel',

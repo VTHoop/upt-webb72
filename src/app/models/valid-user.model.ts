@@ -11,3 +11,7 @@ export interface ValidUser {
   registered: boolean;
   pin: boolean;
 }
+
+export interface ValidUserId extends ValidUser {
+  id: string;
+}

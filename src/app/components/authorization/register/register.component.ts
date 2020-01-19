@@ -4,9 +4,10 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { UsersService } from '../../../services/users.service';
 import { ValidUsersService } from '../../../services/valid-users.service';
 import { DocumentChangeAction } from '@angular/fire/firestore';
-import { ValidUser } from 'src/app/models/valid-user.model';
+import { ValidUser, ValidUserId } from 'src/app/models/valid-user.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -17,32 +18,28 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: string;
   successMessage: string;
-  validUsers$: Observable<DocumentChangeAction<ValidUser>[]>;
 
-  // isValidUser: boolean;
-
-  constructor(
-    public authService: AuthService,
-    public validUsersService: ValidUsersService,
-    public fb: FormBuilder,
-  ) {}
+  constructor(public authService: AuthService, public validUsersService: ValidUsersService, public fb: FormBuilder) {}
 
   ngOnInit() {
     this.createForm();
   }
 
   onSubmit() {
-    this.validUsers$ = this.validUsersService.getUsers('email', this.registerForm.value.email);
-    const $validUsers = this.validUsers$.subscribe(users => {
-      if (users.length === 1) {
-        if (!users[0].payload.doc.data().registered) {
-          this.tryRegister(this.registerForm.value, users[0]);
+    this.validUsersService
+      .getUsers('email', this.registerForm.value.email)
+      .pipe(take(1))
+      .subscribe(users => {
+        if (users.length === 1) {
+          if (!users[0].registered) {
+            this.tryRegister(this.registerForm.value, users[0]);
+          } else {
+            this.errorMessage = 'You have already registered.  Please login to continue.';
+          }
+        } else {
+          this.errorMessage = 'That user is not valid.  Please contact support.';
         }
-      } else {
-        $validUsers.unsubscribe();
-        this.errorMessage = 'That user is not valid.  Please contact support.';
-      }
-    });
+      });
   }
 
   createForm() {
@@ -56,7 +53,7 @@ export class RegisterComponent implements OnInit {
     console.log(this.registerForm);
   }
 
-  tryRegister(value, validUser: DocumentChangeAction<ValidUser>) {
+  tryRegister(value, validUser: ValidUserId) {
     this.authService.doRegister(value, validUser).then(
       res => {
         this.errorMessage = '';

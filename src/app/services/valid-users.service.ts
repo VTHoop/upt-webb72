@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-  AngularFirestoreDocument,
-  DocumentChangeAction
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { ValidUser } from '../models/valid-user.model';
+import { ValidUser, ValidUserId } from '../models/valid-user.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +23,31 @@ export class ValidUsersService {
     }
   }
 
-  getUsers(field: string, id: string): Observable<DocumentChangeAction<ValidUser>[]> {
-    return this.getValidUserReference(field, id).snapshotChanges();
+  getUsers(field: string, criteria: string): Observable<ValidUserId[]> {
+    return this.getValidUserReference(field, criteria)
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as ValidUser;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
   }
 
-  getUserById(id: string): Observable<ValidUser> {
-    return this.getValidUserReference(null, null)
-      .doc<ValidUser>(id)
-      .valueChanges();
+  getUserById(id: string): Observable<ValidUserId> {
+    return this.afs
+      .doc(`${this._firebaseCollection}/${id}`)
+      .snapshotChanges()
+      .pipe(
+        map(a => {
+          const data = a.payload.data() as ValidUser;
+          const userId = a.payload.id;
+          return { id: userId, ...data };
+        })
+      );
   }
 
   updateUserData(email: string, uid: string) {

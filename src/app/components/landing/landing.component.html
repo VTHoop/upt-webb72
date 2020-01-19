@@ -6,9 +6,9 @@
                 Join your classmates to receive updates on your fellow
                 classmates and upcoming reunions.
             </div>
-            <div class="landing__actions" *ngIf="!isUserLoggedIn">
-                <a [routerLink]="['/register']" class="btn btn-dark landing__action" (click)="onActionClicked()">Register</a>
-                <a [routerLink]="['/login']"  class="btn btn-light landing__action" (click)="onActionClicked()">Login</a>
+            <div class="landing__actions">
+                <a [routerLink]="['/register']" class="btn btn-dark landing__action">Register</a>
+                <a [routerLink]="['/login']"  class="btn btn-light landing__action">Login</a>
             </div>
         </div>
         <div class="home__right" *ngIf="sidebarEnabled">

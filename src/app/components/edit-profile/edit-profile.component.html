@@ -119,12 +119,12 @@
                 <div class="full-profile__section">
                     <div class="form__group">
                         <label for="myLife" class="form__label">Post Pilot Training Life</label>
-                        <textarea type="text" name="myLife" class="form__input form__input--my-life"
+                        <textarea autosize type="text" name="myLife" class="form__input form__input--my-life"
                             formControlName="myLife"></textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-light full-profile__actions"
-                    [disabled]="!(fullProfileForm.valid && fullProfileForm.touched && fullProfileForm.dirty)">Update
+                    [disabled]="!(fullProfileForm.valid && fullProfileForm.dirty)">Update
                     Profile</button>
             </div>
         </form>

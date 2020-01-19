@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { User, ranks, states } from '../../../models/user.model';
+import { ranks, states, UserId } from '../../../models/user.model';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { UsersService } from '../../../services/users.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { DocumentChangeAction } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-view-profile',
@@ -13,7 +13,7 @@ import { DocumentChangeAction } from '@angular/fire/firestore';
   styleUrls: ['./view-profile.component.scss']
 })
 export class ViewProfileComponent implements OnInit {
-  pilots$: Observable<DocumentChangeAction<User>[]>;
+  pilots$: Observable<UserId[]>;
 
   fullProfileForm: FormGroup;
 
@@ -32,12 +32,12 @@ export class ViewProfileComponent implements OnInit {
     this.pilots$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.users.getUsers('uid', params.get('id')))
     );
-    this.pilots$.subscribe(pilots => this.createForm(pilots[0].payload.doc.data()));
+    this.pilots$.pipe(take(1)).subscribe(pilots => this.createForm(pilots[0]));
     this.afRanks = ranks;
     this.states = states;
   }
 
-  createForm(user: User) {
+  createForm(user: UserId) {
     this.fullProfileForm = this.fb.group({
       email: new FormControl({ value: user.email, disabled: true }),
       nickname: new FormControl({ value: user.nickname, disabled: true }),
@@ -56,7 +56,7 @@ export class ViewProfileComponent implements OnInit {
     });
   }
 
-  getProfilePic(pilot: User) {
+  getProfilePic(pilot: UserId) {
     return `../../../../assets/img/tiger_photos/${pilot.lastName}.jpg`;
   }
 

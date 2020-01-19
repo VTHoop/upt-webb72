@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument,
-  DocumentChangeAction,
-  DocumentSnapshot,
-  Action
-} from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { User } from '../models/user.model';
-import { AuthService } from '../shared/services/auth.service';
+import { User, UserId } from '../models/user.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,26 +26,44 @@ export class UsersService {
         .collection(this._firebaseCollection)
         .add(Object.assign({}, user))
         .then(
-          res => {},
+          res => resolve(res),
           err => reject(err)
         );
     });
   }
 
   updateUserData(id: string, data: any) {
-    return this.getUserReference(null, null)
-      .doc(id)
-      .update(data);
+    return this.afs
+      .doc(`${this._firebaseCollection}/${id}`)
+      .update(data)
+      .then(() => 'Profile Updated Successfully');
   }
 
-  getUsers(field: string, id: string): Observable<DocumentChangeAction<User>[]> {
-    return this.getUserReference(field, id).snapshotChanges();
+  getUsers(field: string, criteria: string): Observable<UserId[]> {
+    return this.getUserReference(field, criteria)
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as User;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
   }
 
-  getUserById(id: string): Observable<Action<DocumentSnapshot<User>>> {
-    return this.getUserReference(null, null)
-      .doc<User>(id)
-      .snapshotChanges();
+  getUserById(id: string): Observable<UserId> {
+    return this.afs
+      .doc<User>(`${this._firebaseCollection}/${id}`)
+      .snapshotChanges()
+      .pipe(
+        map(a => {
+          const data = a.payload.data() as User;
+          const userId = a.payload.id;
+          return { id: userId, ...data };
+        })
+      );
   }
 
   setUserData(userKey, value): Promise<void> {

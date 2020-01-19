@@ -6,29 +6,29 @@
     </div>
     <div class="heading heading-1 view-profile__title">
         <div class="profile-pic profile-pic__view-profile"
-            [ngStyle]="{'background-image': 'url(' + getProfilePic(pilots[0].payload.doc.data()) + ')'}">
+            [ngStyle]="{'background-image': 'url(' + getProfilePic(pilots[0]) + ')'}">
         </div>
         <div class="view-profile__title--text">
-            {{ pilots[0].payload.doc.data().firstName}} {{ pilots[0].payload.doc.data().middleInitial }}
-            {{ pilots[0].payload.doc.data().lastName }}
+            {{ pilots[0].firstName}} {{ pilots[0].middleInitial }}
+            {{ pilots[0].lastName }}
         </div>
     </div>
     <form [formGroup]="fullProfileForm" class="view-profile__form">
         <div class="view-profile__inputs">
             <div class="view-profile__section-subtitle">Contact</div>
             <div class="view-profile__section">
-                <div class="view-profile__email" *ngIf="!pilots[0].payload.doc.data().emailPrivate">
+                <div class="view-profile__email" *ngIf="!pilots[0].emailPrivate">
                     <input type="email" formControlName="email" class="form__input form__input__read-only">
                 </div>
                 <div class="form__group-layout form__group-layout--phone">
                     <div class="form__group">
                         <label for="homePhone" class="form__label">Home Phone</label>
-                        <input type="text" name="homePhone" class="form__input form__input__read-only"
+                        <input [value]="fullProfileForm.get('homePhone').value | phone" type="text" name="homePhone" class="form__input form__input__read-only"
                             formControlName="homePhone">
                     </div>
                     <div class="form__group">
                         <label for="cellPhone" class="form__label">Cell Phone</label>
-                        <input type="text" name="cellPhone" class="form__input form__input__read-only"
+                        <input [value]="fullProfileForm.get('cellPhone').value | phone" type="text" name="cellPhone" class="form__input form__input__read-only"
                             formControlName="cellPhone">
                     </div>
                 </div>
@@ -107,7 +107,7 @@
             <div class="view-profile__section">
                 <div class="form__group">
                     <label for="myLife" class="form__label">Post Pilot Training Life</label>
-                    <textarea type="text" name="myLife"
+                    <textarea autosize type="text" name="myLife"
                         class="form__input form__input__read-only form__input form__input__read-only--my-life"
                         formControlName="myLife"></textarea>
                 </div>

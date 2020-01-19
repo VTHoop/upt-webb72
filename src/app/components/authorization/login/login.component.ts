@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   errorMessage: string;
   successMessage: string;
-  // emailClicked: boolean;
 
   pinVerified: boolean;
 
@@ -26,11 +26,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    // this.emailClicked = false;
   }
 
   onSubmit() {
-    this.trylogin(this.loginForm.value);
+    this.trylogin(this.loginForm.value).then((res: firebase.auth.UserCredential) => this.navigateToNextPage(res));
   }
 
   createForm() {
@@ -40,20 +39,29 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  navigateToNextPage(res: firebase.auth.UserCredential) {
+    this.users
+      .getUsers('uid', res.user.uid)
+      .pipe(take(1))
+      .subscribe(users => {
+        this.pinVerified = users[0].pinVerified;
+        this.errorMessage = '';
+        this.successMessage = 'You have successfully logged in';
+        if (this.pinVerified) {
+          const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/home';
+          this.router.navigateByUrl(redirect);
+        } else {
+          this.router.navigate(['/verify-pin']);
+        }
+      });
+  }
+
   trylogin(value) {
-    this.authService.doLogin(value).then(
+    return this.authService.doLogin(value).then(
       (res: firebase.auth.UserCredential) => {
-        this.users.getUsers('uid', res.user.uid).subscribe(users => {
-          this.pinVerified = users[0].payload.doc.data().pinVerified;
-          this.errorMessage = '';
-          this.successMessage = 'You have successfully logged in';
-          if (this.pinVerified) {
-            const redirect = this.authService.redirectUrl ? this.router.parseUrl(this.authService.redirectUrl) : '/home';
-            this.router.navigateByUrl(redirect);
-          } else {
-            this.router.navigate(['/verify-pin']);
-          }
-        });
+        this.errorMessage = '';
+        this.successMessage = 'You have successfully logged in';
+        return res;
       },
       err => {
         this.errorMessage = err.message;
@@ -61,8 +69,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
-  // onEmailClicked() {
-  //   this.emailClicked = true;
-  // }
 }
