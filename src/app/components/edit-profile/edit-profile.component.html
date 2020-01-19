@@ -4,7 +4,7 @@
     <div class="container full-profile__container">
         <div class="heading heading-1 full-profile__title">
             <div class="profile-pic profile-pic__full-profile"
-                [ngStyle]="{'background-image': 'url(' + getProfilePic(currentUser) + ')'}">
+                [ngStyle]="{'background-image': getProfilePic(currentUser) }">
             </div>
             <div class="full-profile__title--text">
                 {{ currentUser.firstName}} {{ currentUser.middleInitial }}

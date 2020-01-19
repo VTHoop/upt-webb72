@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { UsersService } from '../../services/users.service';
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
-import { Subscription, pipe } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
 import { take, filter } from 'rxjs/operators';
 
 @Component({

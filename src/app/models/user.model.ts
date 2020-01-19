@@ -9,6 +9,7 @@ export interface User {
   hometownCity: string;
   hometownState: string;
   school: string;
+  section: string;
   homePhone?: string;
   cellPhone?: string;
   streetAddress?: string;

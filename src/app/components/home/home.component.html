@@ -1,4 +1,5 @@
-<div class="home home__background">
+<ng-container *ngIf="(currentUser$ | async) as currentUser">
+  <div class="home home__background"  [ngStyle]="{'background-image': setBackground(currentUser) }">
     <app-nav-bar [disableActions]="true"></app-nav-bar>
     <div class="home__content">
         <div class="home__pilots" (click)="goToPilots()">
@@ -12,3 +13,4 @@
         </div>
     </div>
 </div>
+</ng-container>

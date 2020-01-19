@@ -99,6 +99,7 @@ export class AuthService {
       hometownCity: validUser.hometownCity,
       hometownState: validUser.hometownState,
       school: validUser.school,
+      section: validUser.section,
       emailPrivate: false,
       registered: true,
       pinVerified: false

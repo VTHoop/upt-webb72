@@ -80,7 +80,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
 
   getProfilePic(pilot: User) {
-    return `../../../../assets/img/tiger_photos/${pilot.lastName}.jpg`;
+    return `url('../../../../assets/img/tiger_photos/${pilot.lastName}.jpg')`;
   }
 
   ngOnDestroy() {

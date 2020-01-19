@@ -8,6 +8,7 @@ export interface ValidUser {
   hometownState: string;
   rank: string;
   school: string;
+  section: string;
   registered: boolean;
   pin: boolean;
 }
