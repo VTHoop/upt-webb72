@@ -19,16 +19,11 @@
 }
 
 .pilot {
-  background-color: white;
-  min-height: 20rem;
-  box-shadow: 4px 2px 10px 0px rgba(0, 0, 0, 0.4);
-  padding: 2.5rem 4rem;
-
   display: flex;
   flex-direction: column;
 
   transition: .2s transform;
-  
+
   &:hover {
     transform: scale(1.02);
   }

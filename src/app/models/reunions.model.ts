@@ -10,3 +10,19 @@ export interface Reunion {
 export interface ReunionId extends Reunion {
   id: string;
 }
+
+export interface ReunionAttendance {
+  uid: string;
+  name: string;
+  status: string;
+}
+
+export interface ReunionAttendanceId extends ReunionAttendance {
+  id: string;
+}
+
+export enum AttendanceStatus {
+  YES = 'yes',
+  MAYBE = 'maybe',
+  NO = 'no'
+}

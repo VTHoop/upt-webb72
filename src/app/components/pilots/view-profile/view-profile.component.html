@@ -1,23 +1,23 @@
-<div class="container view-profile__container" *ngIf="(pilots$ | async) as pilots">
+<div class="container view-profile__container" *ngIf="(pilot$ | async) as pilot">
     <div class="view-profile__navigation">
         <div (click)="backToPilots()" class="view-profile__navigation--back">
-            <i class="material-icons">arrow_back</i> Back to Pilots
+            <i class="material-icons">arrow_back</i> Back to pilot
         </div>
     </div>
-    <div class="heading heading-1 view-profile__title">
+    <div class="heading heading-1 text--dark view-profile__title">
         <div class="profile-pic profile-pic__view-profile"
-            [ngStyle]="{'background-image': 'url(' + getProfilePic(pilots[0]) + ')'}">
+            [ngStyle]="{'background-image': 'url(' + getProfilePic(pilot) + ')'}">
         </div>
         <div class="view-profile__title--text">
-            {{ pilots[0].firstName}} {{ pilots[0].middleInitial }}
-            {{ pilots[0].lastName }}
+            {{ pilot.firstName}} {{ pilot.middleInitial }}
+            {{ pilot.lastName }}
         </div>
     </div>
     <form [formGroup]="fullProfileForm" class="view-profile__form">
         <div class="view-profile__inputs">
             <div class="view-profile__section-subtitle">Contact</div>
             <div class="view-profile__section">
-                <div class="view-profile__email" *ngIf="!pilots[0].emailPrivate">
+                <div class="view-profile__email" *ngIf="!pilot.emailPrivate">
                     <input type="email" formControlName="email" class="form__input form__input__read-only">
                 </div>
                 <div class="form__group-layout form__group-layout--phone">

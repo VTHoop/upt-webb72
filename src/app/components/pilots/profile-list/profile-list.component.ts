@@ -24,6 +24,6 @@ export class ProfileListComponent implements OnInit {
   }
 
   openProfile(pilot: UserId) {
-    this.router.navigate(['/pilots', pilot.uid]);
+    this.router.navigate(['/pilots', pilot.id]);
   }
 }

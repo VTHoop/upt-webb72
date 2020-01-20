@@ -4,7 +4,7 @@
         <input type="text" name="pilotSearch" class="form__input profile-list__search" placeholder="Search pilots">
     </div>
     <div class="profiles" *ngIf="(pilots$ | async) as pilots">
-        <div class="pilot" *ngFor="let pilot of pilots" (click)=openProfile(pilot)>
+        <div class="card pilot" *ngFor="let pilot of pilots" (click)=openProfile(pilot)>
             <div class="main-info">
                 <div class="profile-pic main-info__profile-pic"
                     [ngStyle]="{'background-image': 'url(' + getProfilePic(pilot) + ')'}"></div>

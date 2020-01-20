@@ -1,0 +1,69 @@
+.view-reunion {
+  &__navigation {
+    margin-bottom: 3rem;
+
+    &--back {
+      display: flex;
+      align-items: center;
+      font-size: 1.6rem;
+      color: var(--color-accent);
+      cursor: pointer;
+    }
+  }
+
+  &__title {
+    font-weight: 300;
+  }
+
+  &__my-attendance {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__my-attendance-actions {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > * {
+      margin-right: 2rem;
+    }
+  }
+
+  &__attendance {
+    font-size: 2rem;
+
+    &-title {
+      text-transform: uppercase;
+      padding: 1rem 1rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+
+      .material-icons {
+        margin-right: 2rem;
+      }
+
+      &--yes {
+        background-image: linear-gradient(to right, rgba(91, 189, 88, 0.5), white);
+      }
+      &--maybe {
+        background-image: linear-gradient(to right, rgba(242, 242, 84, 0.7), white);
+      }
+
+      &--no {
+        background-image: linear-gradient(to right, rgba(221, 73, 73, 0.6), white);
+      }
+    }
+  }
+  &__attendee {
+    font-size: 1.8rem;
+    padding: 1rem 0 1rem 4rem;
+  }
+
+  &__current-status {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}

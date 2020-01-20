@@ -1,1 +1,62 @@
-<p>reunion-view works!</p>
+<div class="container view-reunion__container" *ngIf="reunion$ | async as reunion">
+  <div class="view-reunion__navigation">
+    <div (click)="backToReunions()" class="view-reunion__navigation--back">
+      <i class="material-icons">arrow_back</i> Back to Reunions
+    </div>
+  </div>
+  <h1 class="heading heading-1 text--dark view-reunion__title">
+    <div class="view-reunion__title--text">
+      {{ reunion.reunionYear }} Reunion @ {{ reunion.locationCity }},{{ reunion.locationState }}
+    </div>
+  </h1>
+  <div class="view-reunion__my-attendance">
+    <h3 class="heading heading-3 text--dark">My Attendance</h3>
+    <div class="card">
+      <div class="">
+        Your current attendance response is:
+        <span class="view-reunion__current-status"> {{ getCurrentUserStatus(currentUserAttendance) }} </span>
+      </div>
+      <div class="view-reunion__my-attendance-actions">
+        <button class="btn btn-dark view-reunion__my-attendance-action" (click)="updateUserAttendance(currentUserAttendance, yesStatus)">Yes</button>
+        <button class="btn btn-dark view-reunion__my-attendance-action" (click)="updateUserAttendance(currentUserAttendance, maybeStatus)">Maybe</button>
+        <button class="btn btn-dark view-reunion__my-attendance-action" (click)="updateUserAttendance(currentUserAttendance, noStatus)">No</button>
+      </div>
+    </div>
+  </div>
+  <div class="view-reunion__attendance">
+    <h3 class="heading heading-3 text--dark">Attendees</h3>
+    <div class="card">
+      <div class="view-reunion__attendance-title view-reunion__attendance-title--yes">
+        <i class="material-icons">
+          thumb_up
+        </i>
+        Fox One
+      </div>
+      <div class="view-reunion__attendee" *ngFor="let yesAttendee of yesAttendees">
+        {{ yesAttendee.name }}
+      </div>
+      <div class="view-reunion__attendance--maybe">
+        <div class="view-reunion__attendance-title  view-reunion__attendance-title--maybe">
+          <i class="material-icons">
+            thumbs_up_down
+          </i>
+          There's a Bogie On My Six
+        </div>
+        <div class="view-reunion__attendee" *ngFor="let maybeAttendee of maybeAttendees">
+          {{ maybeAttendee.name }}
+        </div>
+      </div>
+      <div class="view-reunion__attendance--no">
+        <div class="view-reunion__attendance-title  view-reunion__attendance-title--no">
+          <i class="material-icons">
+            thumb_down
+          </i>
+          Gotta Punch Out
+        </div>
+        <div class="view-reunion__attendee" *ngFor="let noAttendee of noAttendees">
+          {{ noAttendee.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

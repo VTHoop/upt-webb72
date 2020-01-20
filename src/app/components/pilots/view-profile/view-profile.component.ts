@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./view-profile.component.scss']
 })
 export class ViewProfileComponent implements OnInit {
-  pilots$: Observable<UserId[]>;
+  pilot$: Observable<UserId>;
 
   fullProfileForm: FormGroup;
 
@@ -29,10 +29,10 @@ export class ViewProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.pilots$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.users.getUsers('uid', params.get('id')))
+    this.pilot$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => this.users.getUserById(params.get('id')))
     );
-    this.pilots$.pipe(take(1)).subscribe(pilots => this.createForm(pilots[0]));
+    this.pilot$.pipe(take(1)).subscribe(pilots => this.createForm(pilots));
     this.afRanks = ranks;
     this.states = states;
   }
