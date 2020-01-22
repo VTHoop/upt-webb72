@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  DocumentChangeAction,
-  AngularFirestoreDocument
-} from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { Reunion, ReunionId, ReunionAttendance, ReunionAttendanceId } from '../models/reunions.model';
+import {
+  Reunion,
+  ReunionId,
+  ReunionAttendance,
+  ReunionAttendanceId,
+  ReunionEventId,
+  ReunionEvent
+} from '../models/reunions.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -29,8 +31,17 @@ export class ReunionsService {
     return this.afs.doc<Reunion>(`${this._firebaseCollection}/${id}`);
   }
 
-  getReunions(field: string, id: string): Observable<ReunionId[]> {
-    return this.getReunionCollection(field, id)
+  getReunionEventDoc(id: string, eventId: string): AngularFirestoreDocument<ReunionEvent> {
+    return this.afs.doc<ReunionEvent>(`${this._firebaseCollection}/${id}/events/${eventId}`);
+  }
+
+
+  ///////////
+  // /reunions
+  // READ one, READ all
+  ///////////
+  getReunions(field: string, criteria: string): Observable<ReunionId[]> {
+    return this.getReunionCollection(field, criteria)
       .snapshotChanges()
       .pipe(
         map(actions =>
@@ -55,10 +66,13 @@ export class ReunionsService {
       );
   }
 
+  ///////////
+  // /reunions/attendees
+  // READ all, UPDATE, CREATE
+  ///////////
 
-
-  getReunionAttendance(id: string): Observable<ReunionAttendanceId[]> {
-    return this.getReunionDoc(id)
+  getReunionAttendance(docId: string): Observable<ReunionAttendanceId[]> {
+    return this.getReunionDoc(docId)
       .collection('attendees')
       .snapshotChanges()
       .pipe(
@@ -83,6 +97,72 @@ export class ReunionsService {
     return this.afs
       .collection(`${this._firebaseCollection}/${reunionId}/attendees`)
       .add(Object.assign({}, data))
-      .then(() => 'Attendance Created Successfully');
+      .then(() => 'Attendance Updated Successfully');
+  }
+
+  ///////////
+  // /reunions/events
+  // READ one, READ all
+  ///////////
+
+  getReunionEvents(docId: string): Observable<ReunionEventId[]> {
+    return this.getReunionDoc(docId)
+      .collection('events', ref => ref.orderBy('eventDate'))
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as ReunionEvent;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
+  getReunionEventById(id: string, eventId: string): Observable<ReunionEventId> {
+    return this.getReunionEventDoc(id, eventId)
+      .snapshotChanges()
+      .pipe(
+        map(a => {
+          const data = a.payload.data() as ReunionEvent;
+          const userId = a.payload.id;
+          return { id: userId, ...data };
+        })
+      );
+  }
+
+  ///////////
+  // /reunions/<id>/events/<id>/attendees
+  // READ all, UPDATE, CREATE
+  ///////////
+
+  getReunionEventAttendance(reunionId: string, eventId: string): Observable<ReunionAttendanceId[]> {
+    return this.getReunionEventDoc(reunionId, eventId)
+      .collection('attendees')
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as ReunionAttendance;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
+  updateReunionEventAttendance(reunionId: string, eventId: string, attendeeId: string, data: any) {
+    return this.afs
+      .doc(`${this._firebaseCollection}/${reunionId}/events/${eventId}/attendees/${attendeeId}`)
+      .update(data)
+      .then(() => 'Attendance Updated Successfully');
+  }
+
+  addReunionEventAttendance(reunionId: string, eventId: string, data: any) {
+    return this.afs
+      .collection(`${this._firebaseCollection}/${reunionId}/events/${eventId}/attendees`)
+      .add(Object.assign({}, data))
+      .then(() => 'Attendance Updated Successfully');
   }
 }

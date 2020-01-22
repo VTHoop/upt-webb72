@@ -4,6 +4,7 @@ import { AuthGuard } from 'src/app/shared/guards/auth.guard';
 import { ReunionsComponent } from './reunions.component';
 import { ReunionListComponent } from './reunion-list/reunion-list.component';
 import { ReunionViewComponent } from './reunion-view/reunion-view.component';
+import { EventsComponent } from './events/events.component';
 
 const reunionRoutes: Routes = [
   {
@@ -22,6 +23,12 @@ const reunionRoutes: Routes = [
         component: ReunionViewComponent,
         canActivateChild: [AuthGuard],
         data: { animation: 'isRight' }
+      },
+      {
+        path: ':id/events/:eventId',
+        component: EventsComponent,
+        canActivateChild: [AuthGuard],
+        data: { animation: 'isLeft' }
       }
     ]
   }

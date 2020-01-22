@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { ReunionId, ReunionAttendanceId, AttendanceStatus } from 'src/app/models/reunions.model';
+import { ReunionId, ReunionAttendanceId, AttendanceStatus, ReunionEventId } from 'src/app/models/reunions.model';
 import { ReunionsService } from 'src/app/services/reunions.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserId } from 'src/app/models/user.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reunion-view',
@@ -14,9 +15,7 @@ import { UserId } from 'src/app/models/user.model';
 })
 export class ReunionViewComponent implements OnInit, OnDestroy {
   reunion$: Observable<ReunionId>;
-  reunionSubscription: Subscription;
-  attendanceSubscription: Subscription;
-  currentUserSubscription: Subscription;
+  openSubscriptions: Subscription[] = [];
 
   currentUser: UserId;
   currentUserAttendance: ReunionAttendanceId;
@@ -25,6 +24,8 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
   yesAttendees: ReunionAttendanceId[];
   maybeAttendees: ReunionAttendanceId[];
   noAttendees: ReunionAttendanceId[];
+
+  reunionEvents$: Observable<ReunionEventId[]>;
 
   yesStatus = AttendanceStatus.YES;
   maybeStatus = AttendanceStatus.MAYBE;
@@ -36,25 +37,34 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
+    this.openSubscriptions.push(
+      this.authService.currentUser.subscribe(user => {
+        this.currentUser = user;
+      })
+    );
   }
 
   ngOnInit() {
     this.reunion$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.reunions.getReunionById(params.get('id')))
     );
-    this.reunionSubscription = this.reunion$.subscribe(reunion => {
-      this.reunionId = reunion.id;
-      this.attendanceSubscription = this.reunions.getReunionAttendance(reunion.id).subscribe(attendance => {
-        this.yesAttendees = attendance.filter(attendee => attendee.status === this.yesStatus);
-        this.maybeAttendees = attendance.filter(attendee => attendee.status === this.maybeStatus);
-        this.noAttendees = attendance.filter(attendee => attendee.status === this.noStatus);
+    this.openSubscriptions.push(
+      this.reunion$.subscribe(reunion => {
+        this.reunionId = reunion.id;
 
-        this.currentUserAttendance = attendance.filter(attendee => attendee.uid === this.currentUser.uid)[0];
-      });
-    });
+        this.reunionEvents$ = this.reunions.getReunionEvents(reunion.id);
+
+        this.openSubscriptions.push(
+          this.reunions.getReunionAttendance(reunion.id).subscribe(attendance => {
+            this.yesAttendees = attendance.filter(attendee => attendee.status === this.yesStatus);
+            this.maybeAttendees = attendance.filter(attendee => attendee.status === this.maybeStatus);
+            this.noAttendees = attendance.filter(attendee => attendee.status === this.noStatus);
+
+            this.currentUserAttendance = attendance.filter(attendee => attendee.uid === this.currentUser.uid)[0];
+          })
+        );
+      })
+    );
   }
 
   getCurrentUserStatus(currentUser: ReunionAttendanceId): string {
@@ -77,12 +87,15 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
     };
   }
 
+  checkIfMidnight(time: firebase.firestore.Timestamp): boolean {
+    return moment(time.toDate()).format('H:mm') === '0:00';
+  }
+
   backToReunions() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   ngOnDestroy() {
-    this.reunionSubscription.unsubscribe();
-    this.attendanceSubscription.unsubscribe();
+    this.openSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

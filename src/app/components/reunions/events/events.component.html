@@ -1,0 +1,89 @@
+<ng-container *ngIf="reunion$ | async as reunion">
+  <ng-container *ngIf="event$ | async as event">
+    <div class="container event__container">
+      <div class="event__navigation">
+        <div (click)="backToReunions()" class="event__navigation--back">
+          <i class="material-icons">arrow_back</i> Back to Reunion
+        </div>
+      </div>
+      <h1 class="heading heading-1 text--dark reunion__title">
+        {{ reunion.reunionYear }} Reunion @ {{ reunion.locationCity }},{{ reunion.locationState }}
+      </h1>
+      <h2 class="heading heading-2 text--dark event__title">{{ event.description }}</h2>
+
+      <div class="event__section section-with-two-cards">
+        <div class="section--1">
+          <h3 class="heading heading-3 text--dark">Event Details</h3>
+          <div class="card event__events-card">
+            <div class="event__detail">
+              <i class="material-icons">
+                event
+              </i>
+              {{ event.eventDate.seconds * 1000 | date: 'EEEE, d MMM y' }}
+            </div>
+            <div class="event__detail">
+              <i class="material-icons">
+                timer
+              </i>
+              {{ checkIfMidnight(event.eventDate) ? 'TBD' : (event.eventDate.seconds * 1000 | date: 'HHmm') }}
+            </div>
+            <div class="event__detail">
+              <i class="material-icons">
+                my_location
+              </i>
+              {{ getEventLocation(event) }}
+            </div>
+          </div>
+        </div>
+        <div class="section--2">
+          <h3 class="heading heading-3 text--dark">My Attendance</h3>
+          <div class="card">
+            <div class="">
+              Your current attendance response is:
+              <span class="event__current-status"> {{ getCurrentUserStatus(currentUserAttendance) }} </span>
+            </div>
+            <div class="event__my-attendance-actions">
+              <button
+                class="btn btn-dark event__my-attendance-action"
+                (click)="updateUserAttendance(currentUserAttendance, yesStatus)"
+              >
+                Yes
+              </button>
+              <button
+                class="btn btn-dark event__my-attendance-action"
+                (click)="updateUserAttendance(currentUserAttendance, noStatus)"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="event__section">
+        <h3 class="heading heading-3 text--dark">Attendees</h3>
+        <div class="card">
+          <div class="event__attendance-title event__attendance-title--yes">
+            <i class="material-icons">
+              thumb_up
+            </i>
+            Fox One
+          </div>
+          <div class="event__attendee" *ngFor="let yesAttendee of yesAttendees">
+            {{ yesAttendee.name }}
+          </div>
+          <div class="event__attendance--no">
+            <div class="event__attendance-title  event__attendance-title--no">
+              <i class="material-icons">
+                thumb_down
+              </i>
+              Gotta Punch Out
+            </div>
+            <div class="event__attendee" *ngFor="let noAttendee of noAttendees">
+              {{ noAttendee.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>

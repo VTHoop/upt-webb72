@@ -10,8 +10,16 @@
     background-size: cover;
   }
 
+  &__class-patch {
+    height: 275px;
+  }
+
   &__title {
     color: white;
+
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
   }
 
   &__subtitle {

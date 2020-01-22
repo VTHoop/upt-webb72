@@ -5,11 +5,10 @@
     </div>
   </div>
   <h1 class="heading heading-1 text--dark view-reunion__title">
-    <div class="view-reunion__title--text">
       {{ reunion.reunionYear }} Reunion @ {{ reunion.locationCity }},{{ reunion.locationState }}
-    </div>
   </h1>
-  <div class="view-reunion__my-attendance">
+  <h2 class="heading heading-2 text--dark">&nbsp;</h2>
+  <div class="view-reunion__section">
     <h3 class="heading heading-3 text--dark">My Attendance</h3>
     <div class="card">
       <div class="">
@@ -17,13 +16,57 @@
         <span class="view-reunion__current-status"> {{ getCurrentUserStatus(currentUserAttendance) }} </span>
       </div>
       <div class="view-reunion__my-attendance-actions">
-        <button class="btn btn-dark view-reunion__my-attendance-action" (click)="updateUserAttendance(currentUserAttendance, yesStatus)">Yes</button>
-        <button class="btn btn-dark view-reunion__my-attendance-action" (click)="updateUserAttendance(currentUserAttendance, maybeStatus)">Maybe</button>
-        <button class="btn btn-dark view-reunion__my-attendance-action" (click)="updateUserAttendance(currentUserAttendance, noStatus)">No</button>
+        <button
+          class="btn btn-dark view-reunion__my-attendance-action"
+          (click)="updateUserAttendance(currentUserAttendance, yesStatus)"
+        >
+          Yes
+        </button>
+        <button
+          class="btn btn-dark view-reunion__my-attendance-action"
+          (click)="updateUserAttendance(currentUserAttendance, maybeStatus)"
+        >
+          Maybe
+        </button>
+        <button
+          class="btn btn-dark view-reunion__my-attendance-action"
+          (click)="updateUserAttendance(currentUserAttendance, noStatus)"
+        >
+          No
+        </button>
       </div>
     </div>
   </div>
-  <div class="view-reunion__attendance">
+  <div class="view-reunion__section" *ngIf="reunionEvents$ | async as reunionEvents">
+    <h3 class="heading heading-3 text--dark">Event Schedule</h3>
+    <div class="card view-reunion__events-card">
+      <div class="view-reunion__events" *ngFor="let reunionEvent of reunionEvents">
+        <div class="view-reunion__event-details">
+          <div class="event-date">
+            {{ reunionEvent.description }}
+          </div>
+          <div class="event-description">
+            <i class="material-icons">
+              event
+            </i>
+            {{ reunionEvent.eventDate.seconds * 1000 | date: 'EEEE, d MMM y' }}
+          </div>
+          <div class="event-description">
+            <i class="material-icons">
+              timer
+            </i>
+            {{ checkIfMidnight(reunionEvent.eventDate) ? 'TBD' : reunionEvent.eventDate.seconds * 1000 | date: 'HHmm' }}
+          </div>
+        </div>
+        <div class="view-reunion__event-actions">
+          <a [routerLink]="['./events', reunionEvent.id]" class="btn btn-dark view-reunion__btn-event"
+            >Event Details <i _ngcontent-dah-c3="" class="material-icons">arrow_forward</i></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="view-reunion__section">
     <h3 class="heading heading-3 text--dark">Attendees</h3>
     <div class="card">
       <div class="view-reunion__attendance-title view-reunion__attendance-title--yes">

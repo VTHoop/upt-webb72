@@ -1,4 +1,4 @@
-.view-reunion {
+.event {
   &__navigation {
     margin-bottom: 3rem;
 
@@ -9,11 +9,6 @@
       color: var(--color-accent);
       cursor: pointer;
     }
-  }
-
-  &__title {
-    font-weight: 300;
-    margin-bottom: 2rem;
   }
 
   &__section {
@@ -43,7 +38,6 @@
       margin-right: 2rem;
     }
 
-
     &--yes {
       background-image: linear-gradient(to right, rgba(49, 84, 121, 0.5), white);
     }
@@ -66,6 +60,7 @@
   }
 
   &__events-card {
+    height: 100%;
     > .view-reunion__events:not(:last-child) {
       border-bottom: 1px solid;
     }
@@ -81,27 +76,34 @@
   &__btn-event {
     font-size: 1.4rem;
   }
-}
 
-.event-date {
-  font-family: 'Oswald', serif;
-  text-transform: uppercase;
-  font-weight: 400;
-  letter-spacing: .2rem;
+  &__title {
+    color: var(--color-accent);
+  }
 
-  display:flex;
-  align-items: center;
-}
+  &__detail {
+    display: flex;
+    align-items: center;
 
-.event-description {
-  font-size: 1.6rem;
-
-  display:flex;
-  align-items: center;
-
-  .material-icons {
-    margin-right: 2rem;
+    .material-icons {
+      margin-right: 2rem;
+    }
   }
 }
 
+.reunion__title {
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
 
+.section-with-two-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50rem, 1fr));
+  grid-gap: 4rem;
+}
+
+.section--1,
+.section--2 {
+  display: flex;
+  flex-direction: column;
+}
