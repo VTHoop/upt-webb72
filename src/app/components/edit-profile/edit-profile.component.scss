@@ -65,6 +65,15 @@ select {
   &__actions {
     margin-top: 2rem;
   }
+
+  &__no-photo {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 .form {
@@ -118,5 +127,29 @@ select {
     &--my-life {
       height: 20rem;
     }
+  }
+}
+
+.profile-pic {
+  &--no-photo {
+    border: 3px solid white;
+    padding: 2rem;
+    margin-top: 1rem;
+  }
+}
+
+.section-flex {
+  display: flex;
+  &--row {
+    flex-direction: row;
+  }
+  &--column {
+    flex-direction: column;
+  }
+  &--space-between {
+    justify-content: space-between;
+  }
+  &--justify-center {
+    justify-content: center;
   }
 }

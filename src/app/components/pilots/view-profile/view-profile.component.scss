@@ -2,6 +2,12 @@ select {
   transform: translateY(-1px); //is lower than all other inputs for some reason
 }
 
+.profile-pic {
+  &--current {
+    transform: translateX(-3rem);
+  }
+}
+
 .view-profile {
   &__navigation {
     margin-bottom: 3rem;

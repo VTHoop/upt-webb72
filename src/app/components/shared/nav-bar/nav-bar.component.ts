@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { User } from '../../../../models/user.model';
-import { AuthService } from '../../../../shared/services/auth.service';
-import { UsersService } from '../../../../services/users.service';
+import { UserId } from '../../../models/user.model';
+import { AuthService } from '../../../shared/services/auth.service';
+import { UsersService } from '../../../services/users.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  currentUser: User;
+  currentUser: UserId;
   currentUserSubscription: Subscription;
 
   @Input() disableActions: boolean;
@@ -24,7 +24,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {}
 
-  getProfilePic(pilot: User) {
+  getProfilePic(pilot: UserId) {
     return `../../../../assets/img/tiger_photos/${pilot.lastName}.jpg`;
   }
 

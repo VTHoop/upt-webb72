@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
 import { User, ranks, states, UserId } from '../../models/user.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { UsersService } from '../../services/users.service';
 import { ToastrService } from 'ngx-toastr';
-import { first, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -17,6 +18,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   currentUserSubscription: Subscription;
 
   fullProfileForm: FormGroup;
+  currentProfilePic$: Observable<string>;
 
   objectKeys = Object.keys;
   afRanks;
@@ -26,14 +28,15 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     public fb: FormBuilder,
     public usersService: UsersService,
+    public storage: StorageService,
     private toastr: ToastrService
-  ) {
-    this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
-  }
+  ) {}
 
   ngOnInit() {
+    this.currentUserSubscription = this.authService.currentUser.subscribe(user => {
+      this.currentProfilePic$ = this.getCurrentProfilePic(user);
+      this.currentUser = user;
+    });
     this.createForm(this.currentUser);
     this.afRanks = ranks;
     this.states = states;
@@ -44,16 +47,16 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .getUserById(this.currentUser.id)
       .pipe(take(1))
       .subscribe(user => {
-          this.usersService.updateUserData(user.id, value).then(res => {
-            this.toastr.success(res);
-            const updatedUserData: UserId = {
-              ...this.currentUser,
-              ...value
-            };
-            this.authService.updateUser(updatedUserData);
-            this.fullProfileForm.markAsPristine();
-            this.fullProfileForm.markAsUntouched();
-          });
+        this.usersService.updateUserData(user.id, value).then(res => {
+          this.toastr.success(res);
+          const updatedUserData: UserId = {
+            ...this.currentUser,
+            ...value
+          };
+          this.authService.updateUser(updatedUserData);
+          this.fullProfileForm.markAsPristine();
+          this.fullProfileForm.markAsUntouched();
+        });
       });
   }
 
@@ -81,6 +84,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   getProfilePic(pilot: User) {
     return `url('../../../../assets/img/tiger_photos/${pilot.lastName}.jpg')`;
+  }
+
+  getCurrentProfilePic(pilot: UserId) {
+    if (pilot.profilePhotoLocation) {
+      return this.storage.getCurrentProfilePhoto(pilot.profilePhotoLocation);
+    }
   }
 
   ngOnDestroy() {

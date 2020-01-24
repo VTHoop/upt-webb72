@@ -6,7 +6,7 @@ import { RegisterComponent } from '../authorization/register/register.component'
 import { VerifyPinComponent } from '../authorization/verify-pin/verify-pin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingRoutingModule } from './landing-routing.module';
-import { FieldStatusComponent } from '../shared/components/field-status/field-status.component';
+import { FieldStatusComponent } from '../shared/field-status/field-status.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, LandingRoutingModule],

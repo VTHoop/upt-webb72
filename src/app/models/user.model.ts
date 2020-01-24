@@ -18,6 +18,7 @@ export interface User {
   currentZip?: string;
   significantOther?: string;
   myLife?: string;
+  profilePhotoLocation?: string;
   emailPrivate: boolean;
   registered: boolean;
   pinVerified: boolean;

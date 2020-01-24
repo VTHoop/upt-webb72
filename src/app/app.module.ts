@@ -14,7 +14,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
-import { NavBarComponent } from './components/shared/components/nav-bar/nav-bar.component';
+import { NavBarComponent } from './components/shared/nav-bar/nav-bar.component';
 import { HomeComponent } from './components/home/home.component';
 import { PilotsComponent } from './components/pilots/pilots.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
@@ -23,6 +23,8 @@ import { LandingModule } from './components/landing/landing.module';
 import { PageNotFoundComponent } from './components/shared/page-not-found/page-not-found.component';
 import { ReunionsModule } from './components/reunions/reunions.module';
 import { ReunionsComponent } from './components/reunions/reunions.component';
+import { DropZoneDirective } from './shared/directives/drop-zone.directive';
+import { FileUploadComponent } from './components/shared/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ReunionsComponent } from './components/reunions/reunions.component';
     EditProfileComponent,
     NavBarComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DropZoneDirective,
+    FileUploadComponent
   ],
   imports: [
     AutosizeModule,

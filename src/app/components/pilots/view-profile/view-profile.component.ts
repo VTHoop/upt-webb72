@@ -5,7 +5,7 @@ import { UsersService } from '../../../services/users.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-view-profile',
@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class ViewProfileComponent implements OnInit {
   pilot$: Observable<UserId>;
+  currentProfilePic$: Observable<string>;
 
   fullProfileForm: FormGroup;
 
@@ -24,15 +25,17 @@ export class ViewProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private users: UsersService,
+    private storage: StorageService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.pilot$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.users.getUserById(params.get('id')))
-    );
-    this.pilot$.pipe(take(1)).subscribe(pilots => this.createForm(pilots));
+    this.pilot$ = this.route.paramMap.pipe(switchMap((params: ParamMap) => this.users.getUserById(params.get('id'))));
+    this.pilot$.pipe(take(1)).subscribe(pilot => {
+      this.currentProfilePic$ = this.getCurrentProfilePic(pilot);
+      this.createForm(pilot);
+    });
     this.afRanks = ranks;
     this.states = states;
   }
@@ -56,8 +59,14 @@ export class ViewProfileComponent implements OnInit {
     });
   }
 
-  getProfilePic(pilot: UserId) {
+  getPilotProfilePic(pilot: UserId): string {
     return `../../../../assets/img/tiger_photos/${pilot.lastName}.jpg`;
+  }
+
+  getCurrentProfilePic(pilot: UserId) {
+    if (pilot.profilePhotoLocation) {
+      return this.storage.getCurrentProfilePhoto(pilot.profilePhotoLocation);
+    }
   }
 
   backToPilots() {

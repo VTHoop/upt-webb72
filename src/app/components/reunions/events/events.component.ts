@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ReunionsService } from 'src/app/services/reunions.service';
@@ -13,7 +13,7 @@ import * as moment from 'moment';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss']
 })
-export class EventsComponent implements OnInit {
+export class EventsComponent implements OnInit, OnDestroy {
   reunion$: Observable<ReunionId>;
   event$: Observable<ReunionEventId>;
   openSubscriptions: Subscription[] = [];
