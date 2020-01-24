@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { UserId } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-file-upload',
@@ -22,7 +23,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   // State for dropzone CSS toggling
   isHovering: boolean;
 
-  constructor(private auth: AuthService, private storage: StorageService) {}
+  constructor(private auth: AuthService, private storage: StorageService, private toastr: ToastrService) {}
 
   ngOnInit() {
     this.openSubscriptions.push(
@@ -48,7 +49,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
     // TODO:  Add case where there is no current user
     const path = `profile/current/${new Date().getTime()}_${file.name}`;
-    this.storage.uploadCurrentProfilePhoto(file, path, this.currentUser);
+    this.toastr.info('Photo upload started');
+    this.storage.uploadCurrentProfilePhoto(file, path, this.currentUser).then(res => this.toastr.success(res));
   }
 
   // Determines if the upload task is active

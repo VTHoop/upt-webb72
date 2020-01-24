@@ -32,9 +32,10 @@ export class StorageService {
     //
     //   })
     // );
-    task.then(() => {
+    return task.then(() => {
       this.users.updateUserData(user.id, { profilePhotoLocation: path });
       this.auth.updateUser({ ...user, profilePhotoLocation: path });
+      return 'Photo Updated Succesfully';
     });
   }
 }
