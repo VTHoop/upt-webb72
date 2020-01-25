@@ -81,6 +81,17 @@ body {
   }
 }
 
+.form {
+  &__error {
+    color: darkorange;
+    font-size: 1.4rem;
+  }
+  &__success {
+    color: greenyellow;
+    font-size: 1.4rem;
+  }
+}
+
 ///////////////////////
 // COMPONENTS
 //////////////////////
@@ -123,7 +134,7 @@ button {
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 .5rem .5rem rgba(75, 75, 75, .4);
+    box-shadow: 0 0.5rem 0.5rem rgba(75, 75, 75, 0.4);
   }
 
   &-dark {
@@ -292,5 +303,3 @@ a.btn {
   border-radius: 50%;
   align-self: center;
 }
-
-

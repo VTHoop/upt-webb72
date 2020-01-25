@@ -17,7 +17,7 @@
                     <app-field-status [status]="pinForm.controls.pin"></app-field-status>
                 </div>
             </div>
-            <label class="error">{{errorMessage}}</label>
+            <label class="form__error">{{errorMessage}}</label>
             <label class="success">{{successMessage}}</label>
             <button type="submit" class="btn btn-light" [disabled]="pinForm.invalid">Verify</button>
         </div>

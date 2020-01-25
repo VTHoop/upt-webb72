@@ -5,7 +5,7 @@
     </div>
   </div>
   <h1 class="heading heading-1 text--dark view-reunion__title">
-      {{ reunion.reunionYear }} Reunion @ {{ reunion.locationCity }},{{ reunion.locationState }}
+    {{ reunion.reunionYear }} Reunion @ {{ reunion.locationCity }},{{ reunion.locationState }}
   </h1>
   <h2 class="heading heading-2 text--dark">&nbsp;</h2>
   <div class="view-reunion__section">
@@ -13,24 +13,24 @@
     <div class="card">
       <div class="">
         Your current attendance response is:
-        <span class="view-reunion__current-status"> {{ getCurrentUserStatus(currentUserAttendance) }} </span>
+        <span class="view-reunion__current-status"> {{ getCurrentUserStatus(currentUserReunionAttendance) }} </span>
       </div>
       <div class="view-reunion__my-attendance-actions">
         <button
           class="btn btn-dark view-reunion__my-attendance-action"
-          (click)="updateUserAttendance(currentUserAttendance, yesStatus)"
+          (click)="updateUserAttendance(currentUserReunionAttendance, yesStatus)"
         >
           Yes
         </button>
         <button
           class="btn btn-dark view-reunion__my-attendance-action"
-          (click)="updateUserAttendance(currentUserAttendance, maybeStatus)"
+          (click)="updateUserAttendance(currentUserReunionAttendance, maybeStatus)"
         >
           Maybe
         </button>
         <button
           class="btn btn-dark view-reunion__my-attendance-action"
-          (click)="updateUserAttendance(currentUserAttendance, noStatus)"
+          (click)="updateUserAttendance(currentUserReunionAttendance, noStatus)"
         >
           No
         </button>
@@ -45,6 +45,9 @@
           <div class="event-date">
             {{ reunionEvent.description }}
           </div>
+          <div class="event-description event-rsvp">
+           {{ getCurrentUserEventAttendanceStatus(reunionEvent) | titlecase }}
+          </div>
           <div class="event-description">
             <i class="material-icons">
               event
@@ -55,7 +58,9 @@
             <i class="material-icons">
               timer
             </i>
-            {{ checkIfMidnight(reunionEvent.eventDate) ? 'TBD' : reunionEvent.eventDate.seconds * 1000 | date: 'HHmm' }}
+            {{
+              checkIfMidnight(reunionEvent.eventDate) ? 'TBD' : (reunionEvent.eventDate.seconds * 1000 | date: 'HHmm')
+            }}
           </div>
         </div>
         <div class="view-reunion__event-actions">

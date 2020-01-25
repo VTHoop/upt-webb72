@@ -7,7 +7,9 @@ import {
   ReunionAttendance,
   ReunionAttendanceId,
   ReunionEventId,
-  ReunionEvent
+  ReunionEvent,
+  ReunionEventAttendanceId,
+  ReunionEventAttendance
 } from '../models/reunions.model';
 import { map } from 'rxjs/operators';
 
@@ -34,7 +36,6 @@ export class ReunionsService {
   getReunionEventDoc(id: string, eventId: string): AngularFirestoreDocument<ReunionEvent> {
     return this.afs.doc<ReunionEvent>(`${this._firebaseCollection}/${id}/events/${eventId}`);
   }
-
 
   ///////////
   // /reunions
@@ -63,6 +64,22 @@ export class ReunionsService {
           const userId = a.payload.id;
           return { id: userId, ...data };
         })
+      );
+  }
+
+  getReunionEventAttendanceByUser(reunionId: string, uid: string) {
+    return this.afs
+      .collectionGroup('eventAttendees', ref => ref.where('uid', '==', uid))
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            // return a.payload.doc.data();
+            const data = a.payload.doc.data() as ReunionEventAttendance;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
       );
   }
 
@@ -137,14 +154,14 @@ export class ReunionsService {
   // READ all, UPDATE, CREATE
   ///////////
 
-  getReunionEventAttendance(reunionId: string, eventId: string): Observable<ReunionAttendanceId[]> {
+  getReunionEventAttendance(reunionId: string, eventId: string): Observable<ReunionEventAttendanceId[]> {
     return this.getReunionEventDoc(reunionId, eventId)
-      .collection('attendees')
+      .collection('eventAttendees')
       .snapshotChanges()
       .pipe(
         map(actions =>
           actions.map(a => {
-            const data = a.payload.doc.data() as ReunionAttendance;
+            const data = a.payload.doc.data() as ReunionEventAttendance;
             const id = a.payload.doc.id;
             return { id, ...data };
           })
@@ -154,14 +171,14 @@ export class ReunionsService {
 
   updateReunionEventAttendance(reunionId: string, eventId: string, attendeeId: string, data: any) {
     return this.afs
-      .doc(`${this._firebaseCollection}/${reunionId}/events/${eventId}/attendees/${attendeeId}`)
+      .doc(`${this._firebaseCollection}/${reunionId}/events/${eventId}/eventAttendees/${attendeeId}`)
       .update(data)
       .then(() => 'Attendance Updated Successfully');
   }
 
   addReunionEventAttendance(reunionId: string, eventId: string, data: any) {
     return this.afs
-      .collection(`${this._firebaseCollection}/${reunionId}/events/${eventId}/attendees`)
+      .collection(`${this._firebaseCollection}/${reunionId}/events/${eventId}/eventAttendees`)
       .add(Object.assign({}, data))
       .then(() => 'Attendance Updated Successfully');
   }

@@ -73,7 +73,6 @@ export class EventsComponent implements OnInit, OnDestroy {
         status: attendanceStatus
       });
     } else {
-      console.log('ready to add attendee');
       this.reunions.addReunionEventAttendance(this.reunionId, this.eventId, this.createNewAttendance(attendanceStatus));
     }
   }
@@ -81,6 +80,7 @@ export class EventsComponent implements OnInit, OnDestroy {
   createNewAttendance(status: string) {
     return {
       name: `${this.currentUser.rank} ${this.currentUser.firstName} ${this.currentUser.middleInitial} ${this.currentUser.lastName} (${this.currentUser.nickname})`,
+      eventId: this.eventId,
       status,
       uid: this.currentUser.uid
     };

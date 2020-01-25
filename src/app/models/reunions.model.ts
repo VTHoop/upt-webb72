@@ -33,6 +33,17 @@ export interface ReunionEventId extends ReunionEvent {
   id: string;
 }
 
+export interface ReunionEventAttendance {
+  eventId: string;
+  uid: string;
+  name: string;
+  status: string;
+}
+
+export interface ReunionEventAttendanceId extends ReunionEventAttendance {
+  id: string;
+}
+
 export enum AttendanceStatus {
   YES = 'yes',
   MAYBE = 'maybe',

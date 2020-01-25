@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { ReunionId, ReunionAttendanceId, AttendanceStatus, ReunionEventId } from 'src/app/models/reunions.model';
+import { ReunionId, ReunionAttendanceId, AttendanceStatus, ReunionEventId, ReunionEventAttendanceId } from 'src/app/models/reunions.model';
 import { ReunionsService } from 'src/app/services/reunions.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserId } from 'src/app/models/user.model';
 import * as moment from 'moment';
@@ -18,14 +18,15 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
   openSubscriptions: Subscription[] = [];
 
   currentUser: UserId;
-  currentUserAttendance: ReunionAttendanceId;
+  currentUserReunionAttendance: ReunionAttendanceId;
+  currentUserReunionEventAttendance: ReunionEventAttendanceId[];
+
   reunionId: string;
+  reunionEvents$: Observable<ReunionEventId[]>;
 
   yesAttendees: ReunionAttendanceId[];
   maybeAttendees: ReunionAttendanceId[];
   noAttendees: ReunionAttendanceId[];
-
-  reunionEvents$: Observable<ReunionEventId[]>;
 
   yesStatus = AttendanceStatus.YES;
   maybeStatus = AttendanceStatus.MAYBE;
@@ -55,12 +56,19 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
         this.reunionEvents$ = this.reunions.getReunionEvents(reunion.id);
 
         this.openSubscriptions.push(
+          this.reunions.getReunionEventAttendanceByUser(this.reunionId, this.currentUser.uid).subscribe(events => {
+            //     console.log(events);
+            this.currentUserReunionEventAttendance = events;
+          })
+        );
+
+        this.openSubscriptions.push(
           this.reunions.getReunionAttendance(reunion.id).subscribe(attendance => {
             this.yesAttendees = attendance.filter(attendee => attendee.status === this.yesStatus);
             this.maybeAttendees = attendance.filter(attendee => attendee.status === this.maybeStatus);
             this.noAttendees = attendance.filter(attendee => attendee.status === this.noStatus);
 
-            this.currentUserAttendance = attendance.filter(attendee => attendee.uid === this.currentUser.uid)[0];
+            this.currentUserReunionAttendance = attendance.filter(attendee => attendee.uid === this.currentUser.uid)[0];
           })
         );
       })
@@ -69,6 +77,20 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
 
   getCurrentUserStatus(currentUser: ReunionAttendanceId): string {
     return currentUser ? currentUser.status : 'No Response';
+  }
+
+  getCurrentUserEventAttendanceStatus(thisEvent: ReunionEventId): string {
+    // console.log(thisEvent);
+    // return this.currentUserReunionEventAttendance$.pipe(map(events => events.filter(event => event.id === eventId)[0]));
+    const currentRsvp = this.currentUserReunionEventAttendance.filter(event => (event.eventId === thisEvent.id))[0];
+    if (currentRsvp) {
+      return `You have currently RSVPed: ${currentRsvp.status}`;
+    }
+    return 'You have not RSVPed for this event';
+
+    // console.log(this.currentUserReunionEventAttendance.filter(event => (event.eventId === thisEvent.id)));
+    // console.log(this.currentUserReunionEventAttendance);
+
   }
 
   updateUserAttendance(attendee: ReunionAttendanceId, attendanceStatus: string) {
