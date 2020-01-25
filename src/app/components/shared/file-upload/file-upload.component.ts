@@ -15,12 +15,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   currentUserSubscription: Subscription;
   openSubscriptions: Subscription[] = [];
 
-  // task: AngularFireUploadTask;
-  // percentage: Observable<number>;
-
-  // snapshot: Observable<firebase.storage.UploadTaskSnapshot>;
-
-  // State for dropzone CSS toggling
   isHovering: boolean;
 
   constructor(private auth: AuthService, private storage: StorageService, private toastr: ToastrService) {}
@@ -38,16 +32,13 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   startUpload(event: FileList) {
-    // The File object
     const file = event.item(0);
 
-    // Client-side validation example
     if (file.type.split('/')[0] !== 'image') {
       console.error('unsupported file type :( ');
       return;
     }
 
-    // TODO:  Add case where there is no current user
     const path = `profile/current/${new Date().getTime()}_${file.name}`;
     this.toastr.info('Photo upload started');
     this.storage.uploadCurrentProfilePhoto(file, path, this.currentUser).then(res => this.toastr.success(res));

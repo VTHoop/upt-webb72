@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../shared/services/auth.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { UsersService } from '../../../services/users.service';
 import { ValidUsersService } from '../../../services/valid-users.service';
-import { DocumentChangeAction } from '@angular/fire/firestore';
-import { ValidUser, ValidUserId } from 'src/app/models/valid-user.model';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {  ValidUserId } from 'src/app/models/valid-user.model';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +16,12 @@ export class RegisterComponent implements OnInit {
   errorMessage: string;
   successMessage: string;
 
-  constructor(public authService: AuthService, public validUsersService: ValidUsersService, public fb: FormBuilder) {}
+  constructor(
+    public authService: AuthService,
+    public validUsersService: ValidUsersService,
+    public fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.createForm();
@@ -32,7 +34,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(users => {
         if (users.length === 1) {
           if (!users[0].registered) {
-            this.tryRegister(this.registerForm.value, users[0]);
+            this.tryRegister(this.registerForm.value, users[0]).then(() => this.router.navigate(['/verify-pin']));
           } else {
             this.errorMessage = 'You have already registered.  Please login to continue.';
           }
@@ -54,7 +56,7 @@ export class RegisterComponent implements OnInit {
   }
 
   tryRegister(value, validUser: ValidUserId) {
-    this.authService.doRegister(value, validUser).then(
+    return this.authService.doRegister(value, validUser).then(
       res => {
         this.errorMessage = '';
         this.successMessage = 'Your account has been created';

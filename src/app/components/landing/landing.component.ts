@@ -3,13 +3,15 @@ import { AuthService } from '../../shared/services/auth.service';
 import { UsersService } from '../../services/users.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { take, filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
+  openSubscriptions: Subscription[] = [];
   sidebarEnabled: boolean;
 
   constructor(public authService: AuthService, public usersService: UsersService, private router: Router) {}
@@ -28,22 +30,24 @@ export class LandingComponent implements OnInit {
             .subscribe(users => {
               if (!users[0].pinVerified) {
                 this.router.navigate(['/verify-pin']);
-                this.sidebarEnabled = true;
               }
-              // else {
-              //   if (this.router.url === '/') {
-              //     this.router.navigate(['/home']);
-              //   }
-              // }
             });
         }
       });
-    this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: NavigationEnd) => {
-      this.enableSidebar(e.url);
-    });
+    this.openSubscriptions.push(
+      this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: NavigationEnd) => {
+        this.enableSidebar(e.url);
+      })
+    );
   }
 
   enableSidebar(url: string): void {
-    url === '/login' || url === '/register' ? (this.sidebarEnabled = true) : (this.sidebarEnabled = false);
+    url === '/login' || url === '/register' || url === '/verify-pin'
+      ? (this.sidebarEnabled = true)
+      : (this.sidebarEnabled = false);
+  }
+
+  ngOnDestroy() {
+    this.openSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
