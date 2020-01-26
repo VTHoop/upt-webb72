@@ -1,6 +1,6 @@
 <div *ngIf="currentUser">
   <nav class="nav">
-    <div class="nav__menu">
+    <div class="nav__home">
       <a [routerLink]="['/home']" class="nav__menu-home">
         <span>
           <i class="material-icons">
@@ -10,8 +10,10 @@
         <span>
           UPT 72-09 Webb AFB
         </span>
-        <img src="../../../../../assets/img/class_patch_landing.png" alt="class_patch" class="nav__class-patch">
+        <img src="../../../../../assets/img/class_patch_landing.png" alt="class_patch" class="nav__class-patch" />
       </a>
+    </div>
+    <div class="nav__menu">
       <div class="nav__menu-links">
         <a [routerLink]="'/pilots'" class="nav__menu-link" *ngIf="!disableActions">Pilots</a>
         <a [routerLink]="'/reunions'" class="nav__menu-link" *ngIf="!disableActions">Reunions</a>
