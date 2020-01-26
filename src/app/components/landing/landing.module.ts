@@ -7,9 +7,18 @@ import { VerifyPinComponent } from '../authorization/verify-pin/verify-pin.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingRoutingModule } from './landing-routing.module';
 import { FieldStatusComponent } from '../shared/field-status/field-status.component';
+import { ForgotPasswordComponent } from '../authorization/forgot-password/forgot-password.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, LandingRoutingModule],
-  declarations: [LandingComponent, LoginComponent, RegisterComponent, VerifyPinComponent, FieldStatusComponent]
+
+  declarations: [
+    LandingComponent,
+    LoginComponent,
+    RegisterComponent,
+    VerifyPinComponent,
+    FieldStatusComponent,
+    ForgotPasswordComponent
+  ]
 })
 export class LandingModule {}

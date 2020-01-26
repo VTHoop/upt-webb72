@@ -1,8 +1,8 @@
 <div class="container profile-list__container">
     <div class="heading heading-1 profile-list__title">UPT 72-09 Pilots</div>
-    <div class="form__group">
+    <!-- <div class="form__group">
         <input type="text" name="pilotSearch" class="form__input profile-list__search" placeholder="Search pilots">
-    </div>
+    </div> -->
     <div class="profiles" *ngIf="(pilots$ | async) as pilots">
         <div class="card pilot" *ngFor="let pilot of pilots" (click)=openProfile(pilot)>
             <div class="main-info">

@@ -1,7 +1,7 @@
 <div class="container view-profile__container" *ngIf="pilot$ | async as pilot">
   <div class="view-profile__navigation">
     <div (click)="backToPilots()" class="view-profile__navigation--back">
-      <i class="material-icons">arrow_back</i> Back to pilot
+      <i class="material-icons">arrow_back</i> Back to pilots
     </div>
   </div>
   <div class="heading heading-1 text--dark view-profile__title">
@@ -24,67 +24,54 @@
       <div class="view-profile__section-subtitle">Contact</div>
       <div class="view-profile__section">
         <div class="view-profile__email" *ngIf="!pilot.emailPrivate">
-          <input type="email" formControlName="email" class="form__input form__input__read-only" />
+          <div class="form__group">
+            <label for="currentCity" class="form__label">Email</label>
+            <input type="text" name="email" class="form__input" formControlName="email" />
+          </div>
         </div>
-        <div class="form__group-layout form__group-layout--phone">
+        <div
+          class="form__group-layout form__group-layout--phone"
+          *ngIf="fullProfileForm.get('homePhone').value || fullProfileForm.get('cellPhone').value"
+        >
           <div class="form__group">
             <label for="homePhone" class="form__label">Home Phone</label>
             <input
               [value]="fullProfileForm.get('homePhone').value ? (fullProfileForm.get('homePhone').value | phone) : ''"
               type="text"
               name="homePhone"
-              class="form__input form__input__read-only"
+              class="form__input"
               formControlName="homePhone"
             />
           </div>
           <div class="form__group">
             <label for="cellPhone" class="form__label">Cell Phone</label>
             <input
-              [value]="fullProfileForm.get('cellPhone').value ? (fullProfileForm.get('homePhone').value | phone) : ''"
+              [value]="fullProfileForm.get('cellPhone').value ? (fullProfileForm.get('cellPhone').value | phone) : ''"
               type="text"
               name="cellPhone"
-              class="form__input form__input__read-only"
+              class="form__input"
               formControlName="cellPhone"
             />
           </div>
         </div>
-        <div class="form__group-layout">
+        <div class="form__group-layout" *ngIf="fullProfileForm.get('streetAddress').value">
           <div class="form__group">
             <label for="streetAddress" class="form__label">Street Address</label>
-            <input
-              type="text"
-              name="streetAddress"
-              class="form__input form__input__read-only"
-              formControlName="streetAddress"
-            />
+            <input type="text" name="streetAddress" class="form__input" formControlName="streetAddress" />
           </div>
         </div>
         <div class="form__group-layout">
           <div class="form__group">
             <label for="currentCity" class="form__label">Current City</label>
-            <input
-              type="text"
-              name="currentCity"
-              class="form__input form__input__read-only"
-              formControlName="currentCity"
-            />
+            <input type="text" name="currentCity" class="form__input" formControlName="currentCity" />
           </div>
           <div class="form__group form__group--state-with-city-and-zip">
             <label for="currentState" class="form__label">State</label>
-            <select name="currentState" class="form__input form__input__read-only" formControlName="currentState">
-              <option [ngValue]="stateAbbrev" *ngFor="let stateAbbrev of objectKeys(states)">
-                {{ stateAbbrev }}
-              </option>
-            </select>
+            <input type="text" name="currentState" class="form__input" formControlName="currentState" />
           </div>
           <div class="form__group form__group--zip-with-state">
             <label for="currentZip" class="form__label">Zip Code</label>
-            <input
-              type="text"
-              name="currentZip"
-              class="form__input form__input__read-only"
-              formControlName="currentZip"
-            />
+            <input type="text" name="currentZip" class="form__input" formControlName="currentZip" />
           </div>
         </div>
       </div>
@@ -93,56 +80,53 @@
         <div class="form__group-layout">
           <div class="form__group">
             <label for="rank" class="form__label">Rank</label>
-            <select name="rank" class="form__input form__input__read-only" formControlName="rank">
-              <option [ngValue]="key" *ngFor="let key of objectKeys(afRanks)">{{ afRanks[key] }} </option>
-            </select>
+            <input
+              type="text"
+              name="rank"
+              class="form__input"
+              [value]="afRanks[fullProfileForm.get('rank').value]"
+              formControlName="rank"
+            />
           </div>
         </div>
         <div class="form__group-layout">
           <div class="form__group">
             <label for="nickname" class="form__label">Nickname</label>
-            <input type="text" name="nickname" class="form__input form__input__read-only" formControlName="nickname" />
+            <input type="text" name="nickname" class="form__input" formControlName="nickname" />
           </div>
         </div>
         <div class="form__group-layout">
           <div class="form__group">
             <label for="hometownCity" class="form__label">Hometown City</label>
-            <input
-              type="text"
-              name="hometownCity"
-              class="form__input form__input__read-only"
-              formControlName="hometownCity"
-            />
+            <input type="text" name="hometownCity" class="form__input" formControlName="hometownCity" />
           </div>
           <div class="form__group form__group--state-with-city">
             <label for="hometownState" class="form__label">State</label>
-            <select name="hometownState" class="form__input form__input__read-only" formControlName="hometownState">
-              <option [ngValue]="stateAbbrev" *ngFor="let stateAbbrev of objectKeys(states)">
-                {{ stateAbbrev }}
-              </option>
-            </select>
+            <input type="text" name="hometownState" class="form__input" formControlName="hometownState" />
           </div>
         </div>
         <div class="form__group-layout">
           <div class="form__group">
             <label for="school" class="form__label">School</label>
-            <input type="text" name="school" class="form__input form__input__read-only" formControlName="school" />
+            <input type="text" name="school" class="form__input" formControlName="school" />
           </div>
         </div>
       </div>
-      <div class="view-profile__section-subtitle">Tell Everyone Your Story</div>
-      <div class="view-profile__section">
-        <div class="form__group">
-          <label for="myLife" class="form__label">Post Pilot Training Life</label>
-          <textarea
-            autosize
-            type="text"
-            name="myLife"
-            class="form__input form__input__read-only form__input form__input__read-only--my-life"
-            formControlName="myLife"
-          ></textarea>
+      <ng-container *ngIf="fullProfileForm.get('myLife').value">
+        <div class="view-profile__section-subtitle">Tell Everyone Your Story</div>
+        <div class="view-profile__section">
+          <div class="form__group">
+            <label for="myLife" class="form__label">Post Pilot Training Life</label>
+            <textarea
+              autosize
+              type="text"
+              name="myLife"
+              class="form__input form__input--my-life"
+              formControlName="myLife"
+            ></textarea>
+          </div>
         </div>
-      </div>
+      </ng-container>
     </div>
   </form>
 </div>

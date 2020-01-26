@@ -13,8 +13,7 @@
       </div>
     </div>
     <div class="full-profile__description">
-      Any information entered on your profile will be visible to the users of this site (Pilots and their spouses).
-      Please don't enter any information that you don't want to share.
+      Please scroll down and add the information that you would like to have shared on this web site.
     </div>
     <form [formGroup]="fullProfileForm" class="full-profile__form" (ngSubmit)="onSubmit(fullProfileForm.value)">
       <div class="full-profile__inputs">
@@ -32,8 +31,7 @@
                 <h3 class="heading heading-3 text--dark">NO PHOTO SAVED</h3>
                 <div class="text--dark">Share a current photo!</div>
               </div>
-              </ng-template
-            >
+            </ng-template>
           </div>
           <div class="form__group">
             <label class="form__label">Add/Replace Profile Photo</label>
@@ -46,25 +44,10 @@
             <label for="email" class="form__label">Email</label>
             <div class="label-action">
               <input type="checkbox" class="label-action__input" name="emailPrivate" formControlName="emailPrivate" />
-              <span>Make Email Private</span>
+              <span>Do NOT Display My Email Address</span>
             </div>
           </div>
           <input type="email" formControlName="email" class="form__input" />
-          <!-- <div class="form__group-layout form__group-layout--name">
-                        <div class="form__group">
-                            <label for="firstName" class="form__label">First Name</label>
-                            <input type="text" name="firstName" class="form__input" formControlName="firstName"
-                                required>
-                        </div>
-                        <div class="form__group form__group--middle-initial">
-                            <label for="middleInitial" class="form__label">MI</label>
-                            <input type="text" name="middleInitial" class="form__input" formControlName="middleInitial">
-                        </div>
-                        <div class="form__group">
-                            <label for="lastName" class="form__label">Last Name</label>
-                            <input type="text" name="lastName" class="form__input" formControlName="lastName" required>
-                        </div>
-                    </div> -->
           <div class="form__group-layout form__group-layout--phone">
             <div class="form__group">
               <label for="homePhone" class="form__label">Home Phone (no dashes; 10 digits)</label>
@@ -105,9 +88,13 @@
           <div class="form__group-layout">
             <div class="form__group">
               <label for="rank" class="form__label">Rank</label>
-              <select name="rank" class="form__input" formControlName="rank">
-                <option [ngValue]="key" *ngFor="let key of objectKeys(afRanks)">{{ afRanks[key] }} </option>
-              </select>
+              <input
+                type="text"
+                name="rank"
+                class="form__input"
+                [value]="afRanks[fullProfileForm.get('rank').value]"
+                formControlName="rank"
+              />
             </div>
           </div>
           <div class="form__group-layout">
@@ -123,11 +110,7 @@
             </div>
             <div class="form__group form__group--state-with-city">
               <label for="hometownState" class="form__label">State</label>
-              <select name="hometownState" class="form__input" formControlName="hometownState">
-                <option [ngValue]="stateAbbrev" *ngFor="let stateAbbrev of objectKeys(states)">
-                  {{ stateAbbrev }}
-                </option>
-              </select>
+              <input type="text" name="hometownState" class="form__input" formControlName="hometownState" />
             </div>
           </div>
           <div class="form__group-layout">
@@ -140,7 +123,7 @@
         <div class="full-profile__section-subtitle">Tell Everyone Your Story</div>
         <div class="full-profile__section">
           <div class="form__group">
-            <label for="myLife" class="form__label">Post Pilot Training Life</label>
+            <label for="myLife" class="form__label">Life After Training Life</label>
             <textarea
               autosize
               type="text"

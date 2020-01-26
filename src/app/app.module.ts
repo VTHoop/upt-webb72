@@ -36,7 +36,7 @@ import { FileUploadComponent } from './components/shared/file-upload/file-upload
     HomeComponent,
     PageNotFoundComponent,
     DropZoneDirective,
-    FileUploadComponent
+    FileUploadComponent,
   ],
   imports: [
     AutosizeModule,
