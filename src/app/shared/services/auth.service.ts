@@ -143,6 +143,17 @@ export class AuthService {
     this.currentUserSubject.next(user);
   }
 
+  resetPasswordEmail(email: string) {
+    return this.afAuth.auth.sendPasswordResetEmail(email).then(
+      () => {
+        return 'Email has been sent to address provided';
+      },
+      err => {
+        return err;
+      }
+    );
+  }
+
   doLogout() {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);

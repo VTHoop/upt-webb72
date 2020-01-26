@@ -124,11 +124,11 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  // margin: 1rem 0rem;
   font-family: 'Oswald', sans-serif;
   letter-spacing: 0.1rem;
   font-size: 1.6rem;
   max-width: 350px;
+  cursor: pointer;
 
   transition: all 0.2s;
 
