@@ -14,10 +14,12 @@ export class LandingComponent implements OnInit, OnDestroy {
   openSubscriptions: Subscription[] = [];
   sidebarEnabled: boolean;
 
+  actionRoutes: string[] = ['/login', '/register', '/verify-pin', '/forgot-password', '/auth/action'];
+
   constructor(public authService: AuthService, public usersService: UsersService, private router: Router) {}
 
   ngOnInit() {
-    this.enableSidebar(this.router.url);
+    this.enableSidebar(this.router.url.split('?')[0]);
 
     this.authService
       .getLoggedInUser()
@@ -36,15 +38,14 @@ export class LandingComponent implements OnInit, OnDestroy {
       });
     this.openSubscriptions.push(
       this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe((e: NavigationEnd) => {
-        this.enableSidebar(e.url);
+        this.enableSidebar(e.url.split('?')[0]);
       })
     );
   }
 
   enableSidebar(url: string): void {
-    url === '/login' || url === '/register' || url === '/verify-pin'
-      ? (this.sidebarEnabled = true)
-      : (this.sidebarEnabled = false);
+    console.log(url);
+    this.actionRoutes.includes(url) ? (this.sidebarEnabled = true) : (this.sidebarEnabled = false);
   }
 
   ngOnDestroy() {

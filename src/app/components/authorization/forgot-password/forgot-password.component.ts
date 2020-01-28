@@ -22,7 +22,7 @@ export class ForgotPasswordComponent implements OnInit {
   onSubmit() {
     this.auth
       .resetPasswordEmail(this.pwdResetForm.get('email').value)
-      .then(res => (this.successMessage = res))
+      .then((res: string) => (this.successMessage = res))
       .catch(err => (this.errorMessage = err));
   }
 

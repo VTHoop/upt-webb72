@@ -144,14 +144,32 @@ export class AuthService {
   }
 
   resetPasswordEmail(email: string) {
-    return this.afAuth.auth.sendPasswordResetEmail(email).then(
-      () => {
-        return 'Email has been sent to address provided';
-      },
-      err => {
-        return err;
-      }
-    );
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth.sendPasswordResetEmail(email).then(
+        () => {
+          resolve(
+            `Email has been sent to address provided.
+            Please allow a few minutes for an email with a link to reset your password to appear.`
+          );
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
+  }
+
+  confirmPasswordReset(code: string, password: string) {
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth.confirmPasswordReset(code, password).then(
+        () => {
+          resolve('Password reset successfully');
+        },
+        err => {
+          reject(err);
+        }
+      );
+    });
   }
 
   doLogout() {

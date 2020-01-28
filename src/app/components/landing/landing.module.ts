@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingRoutingModule } from './landing-routing.module';
 import { FieldStatusComponent } from '../shared/field-status/field-status.component';
 import { ForgotPasswordComponent } from '../authorization/forgot-password/forgot-password.component';
+import { ConfirmPasswordResetComponent } from '../authorization/confirm-password-reset/confirm-password-reset.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, LandingRoutingModule],
@@ -18,7 +19,8 @@ import { ForgotPasswordComponent } from '../authorization/forgot-password/forgot
     RegisterComponent,
     VerifyPinComponent,
     FieldStatusComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ConfirmPasswordResetComponent
   ]
 })
 export class LandingModule {}

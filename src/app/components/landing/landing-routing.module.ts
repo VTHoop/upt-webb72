@@ -5,6 +5,8 @@ import { LoginComponent } from '../authorization/login/login.component';
 import { RegisterComponent } from '../authorization/register/register.component';
 import { VerifyPinComponent } from '../authorization/verify-pin/verify-pin.component';
 import { IsLoggedIn } from 'src/app/shared/resolvers/is-logged-in';
+import { ForgotPasswordComponent } from '../authorization/forgot-password/forgot-password.component';
+import { ConfirmPasswordResetComponent } from '../authorization/confirm-password-reset/confirm-password-reset.component';
 
 const landingRoutes: Routes = [
   {
@@ -25,6 +27,16 @@ const landingRoutes: Routes = [
       {
         path: 'verify-pin',
         component: VerifyPinComponent,
+        data: { animation: 'isRight' }
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent,
+        data: { animation: 'isRight' }
+      },
+      {
+        path: 'auth/action',
+        component: ConfirmPasswordResetComponent,
         data: { animation: 'isRight' }
       }
     ]
