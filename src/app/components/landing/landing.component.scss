@@ -14,6 +14,12 @@
     height: 275px;
   }
 
+  @media (max-width: 800px) {
+    &__class-patch {
+      height: 150px;
+    }
+  }
+
   &__title {
     color: white;
 
@@ -28,33 +34,35 @@
   }
 
   &__actions {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin-top: 3rem;
   }
 
   &__action {
     flex: 1;
-    margin: 4rem 1rem;
+    margin: 1rem 1rem;
   }
 }
 
 .home {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  justify-items: center;
   align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
 
   flex: 1;
 
   &__left {
     text-align: center;
     padding: 5rem;
-    flex: 1;
   }
 
   &__right {
     background-color: var(--color-primary-darkened);
     align-self: stretch;
-    flex: 0 0 40%;
+    width: 100%;
 
     display: flex;
     justify-content: center;

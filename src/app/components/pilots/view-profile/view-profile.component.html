@@ -60,7 +60,7 @@
             <input type="text" name="streetAddress" class="form__input" formControlName="streetAddress" />
           </div>
         </div>
-        <div class="form__group-layout">
+        <div class="form__group-layout" *ngIf="fullProfileForm.get('currentCity').value || fullProfileForm.get('currentState').value || fullProfileForm.get('currentZip').value">
           <div class="form__group">
             <label for="currentCity" class="form__label">Current City</label>
             <input type="text" name="currentCity" class="form__input" formControlName="currentCity" />

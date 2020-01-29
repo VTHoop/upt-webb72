@@ -28,6 +28,12 @@ html {
   font-size: 62.5%;
 }
 
+@media (max-width: 800px) {
+  html {
+     font-size: 50%;
+   }
+ }
+
 body {
   font-family: var(--font-primary);
   color: var(--color-gray-dark-1);
