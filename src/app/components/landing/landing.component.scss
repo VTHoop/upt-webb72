@@ -34,8 +34,10 @@
   }
 
   &__actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    // display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    justify-content: center;
     margin-top: 3rem;
   }
 
@@ -50,7 +52,6 @@
   justify-items: center;
   align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
 
   flex: 1;
 
