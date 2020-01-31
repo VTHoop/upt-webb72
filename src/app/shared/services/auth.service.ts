@@ -102,6 +102,7 @@ export class AuthService {
       section: validUser.section,
       emailPrivate: false,
       registered: true,
+      display: true,
       pinVerified: false
     };
     const newUserReference: DocumentReference = await this.usersService.createUser(newUser);

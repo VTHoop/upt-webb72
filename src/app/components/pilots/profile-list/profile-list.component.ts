@@ -16,7 +16,7 @@ export class ProfileListComponent implements OnInit {
   constructor(public users: UsersService, public router: Router) {}
 
   ngOnInit() {
-    this.pilots$ = this.users.getUsers(null, null);
+    this.pilots$ = this.users.getPilots();
   }
 
   getProfilePic(pilot: UserId) {

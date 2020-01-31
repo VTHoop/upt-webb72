@@ -22,6 +22,7 @@ export interface User {
   emailPrivate: boolean;
   registered: boolean;
   pinVerified: boolean;
+  display: boolean;
 }
 
 export interface UserId extends User {

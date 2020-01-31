@@ -1,30 +1,30 @@
 <div class="container profile-list__container">
-    <div class="heading heading-1 profile-list__title">UPT 72-09 Pilots</div>
-    <!-- <div class="form__group">
+  <div class="heading heading-1 profile-list__title">UPT 72-09 Pilots</div>
+  <!-- <div class="form__group">
         <input type="text" name="pilotSearch" class="form__input profile-list__search" placeholder="Search pilots">
     </div> -->
-    <div class="profiles" *ngIf="(pilots$ | async) as pilots">
-        <div class="card pilot" *ngFor="let pilot of pilots" (click)=openProfile(pilot)>
-            <div class="main-info">
-                <div class="profile-pic main-info__profile-pic"
-                    [ngStyle]="{'background-image': 'url(' + getProfilePic(pilot) + ')'}"></div>
-                <div class="main-info__name">
-                    <div class="main-info__name--full-name">
-                        {{ pilot.rank }} {{ pilot.firstName }}
-                        {{ pilot.middleInitial }} {{ pilot.lastName }}
-                    </div>
-                    <div class="main-info__name--nickname">"{{ pilot.nickname }}"</div>
-                </div>
-            </div>
-            <div class="school">
-                <div class="label pilot__label">School</div>
-                <div class="pilot__info">{{ pilot.school }}</div>
-            </div>
-            <div class="hometown">
-                <div class="label pilot__label">Hometown</div>
-                <div class="pilot__info">{{ pilot.hometownCity }},
-                    {{ pilot.hometownState }}</div>
-            </div>
+  <div class="profiles" *ngIf="pilots$ | async as pilots">
+    <div class="card pilot" *ngFor="let pilot of pilots" (click)="openProfile(pilot)">
+      <div class="main-info">
+        <div
+          class="profile-pic main-info__profile-pic"
+          [ngStyle]="{ 'background-image': 'url(' + getProfilePic(pilot) + ')' }"
+        ></div>
+        <div class="main-info__name">
+          <div class="main-info__name--full-name">
+            {{ pilot.rank }} {{ pilot.firstName }} {{ pilot.middleInitial }} {{ pilot.lastName }}
+          </div>
+          <div class="main-info__name--nickname">"{{ pilot.nickname }}"</div>
         </div>
+      </div>
+      <div class="school">
+        <div class="label pilot__label">School</div>
+        <div class="pilot__info">{{ pilot.school }}</div>
+      </div>
+      <div class="hometown">
+        <div class="label pilot__label">Hometown</div>
+        <div class="pilot__info">{{ pilot.hometownCity }}, {{ pilot.hometownState }}</div>
+      </div>
     </div>
+  </div>
 </div>

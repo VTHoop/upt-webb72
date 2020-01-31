@@ -53,6 +53,21 @@ export class UsersService {
       );
   }
 
+  getPilots(): Observable<UserId[]> {
+    return this.afs
+      .collection(this._firebaseCollection, ref => ref.where('display', '==', true))
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as User;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
   getUserById(id: string): Observable<UserId> {
     return this.afs
       .doc<User>(`${this._firebaseCollection}/${id}`)
