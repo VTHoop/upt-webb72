@@ -12,8 +12,7 @@ export class IsLoggedIn implements Resolve<any> {
 
   resolve() {
     this.authService.currentUser.pipe(take(1)).subscribe(user => {
-      if (user) {
-        console.log('is the resolver being hit?');
+      if (user && user.pinVerified) {
         this.router.navigate(['/home']);
       }
     });
