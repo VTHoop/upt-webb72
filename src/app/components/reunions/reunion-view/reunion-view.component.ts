@@ -1,6 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { ReunionId, ReunionAttendanceId, AttendanceStatus, ReunionEventId, ReunionEventAttendanceId } from 'src/app/models/reunions.model';
+import {
+  ReunionId,
+  ReunionAttendanceId,
+  AttendanceStatus,
+  ReunionEventId,
+  ReunionEventAttendanceId,
+  ReunionAttendance
+} from 'src/app/models/reunions.model';
 import { ReunionsService } from 'src/app/services/reunions.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap, map } from 'rxjs/operators';
@@ -57,7 +64,6 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
 
         this.openSubscriptions.push(
           this.reunions.getReunionEventAttendanceByUser(this.reunionId, this.currentUser.uid).subscribe(events => {
-            //     console.log(events);
             this.currentUserReunionEventAttendance = events;
           })
         );
@@ -80,17 +86,11 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
   }
 
   getCurrentUserEventAttendanceStatus(thisEvent: ReunionEventId): string {
-    // console.log(thisEvent);
-    // return this.currentUserReunionEventAttendance$.pipe(map(events => events.filter(event => event.id === eventId)[0]));
-    const currentRsvp = this.currentUserReunionEventAttendance.filter(event => (event.eventId === thisEvent.id))[0];
+    const currentRsvp = this.currentUserReunionEventAttendance.filter(event => event.eventId === thisEvent.id)[0];
     if (currentRsvp) {
       return `You have currently RSVPed: ${currentRsvp.status}`;
     }
     return 'You have not RSVPed for this event';
-
-    // console.log(this.currentUserReunionEventAttendance.filter(event => (event.eventId === thisEvent.id)));
-    // console.log(this.currentUserReunionEventAttendance);
-
   }
 
   updateUserAttendance(attendee: ReunionAttendanceId, attendanceStatus: string) {
@@ -101,11 +101,16 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  createNewAttendance(status: string) {
+  updateGuestAttendance(attendee: ReunionAttendanceId, isGuestAttending: boolean) {
+    this.reunions.updateReunionAttendance(this.reunionId, attendee.id, { isGuestAttending });
+  }
+
+  createNewAttendance(status: string): ReunionAttendance {
     return {
       name: `${this.currentUser.rank} ${this.currentUser.firstName} ${this.currentUser.middleInitial} ${this.currentUser.lastName} (${this.currentUser.nickname})`,
       status,
-      uid: this.currentUser.uid
+      uid: this.currentUser.uid,
+      isGuestAttending: false
     };
   }
 

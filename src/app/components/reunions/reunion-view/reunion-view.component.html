@@ -11,30 +11,44 @@
   <div class="view-reunion__section">
     <h3 class="heading heading-3 text--dark">My Attendance</h3>
     <div class="card">
-      <div class="">
-        Your current attendance response is:
-        <span class="view-reunion__current-status"> {{ getCurrentUserStatus(currentUserReunionAttendance) }} </span>
-      </div>
-      <div class="view-reunion__my-attendance-actions">
-        <button
-          class="btn btn-dark view-reunion__my-attendance-action"
-          (click)="updateUserAttendance(currentUserReunionAttendance, yesStatus)"
-        >
-          Yes
-        </button>
-        <button
-          class="btn btn-dark view-reunion__my-attendance-action"
-          (click)="updateUserAttendance(currentUserReunionAttendance, maybeStatus)"
-        >
-          Maybe
-        </button>
-        <button
-          class="btn btn-dark view-reunion__my-attendance-action"
-          (click)="updateUserAttendance(currentUserReunionAttendance, noStatus)"
-        >
-          No
-        </button>
-      </div>
+        <div class="view-reunion__attendance-status">
+          Your current attendance response is:
+          <span class="view-reunion__current-status"> {{ getCurrentUserStatus(currentUserReunionAttendance) }} </span>
+        </div>
+        <div class="view-reunion__my-attendance-actions">
+          <button
+            class="btn btn-dark view-reunion__my-attendance-action"
+            (click)="updateUserAttendance(currentUserReunionAttendance, yesStatus)"
+          >
+            Yes
+          </button>
+          <button
+            class="btn btn-dark view-reunion__my-attendance-action"
+            (click)="updateUserAttendance(currentUserReunionAttendance, maybeStatus)"
+          >
+            Maybe
+          </button>
+          <button
+            class="btn btn-dark view-reunion__my-attendance-action"
+            (click)="updateUserAttendance(currentUserReunionAttendance, noStatus)"
+          >
+            No
+          </button>
+        </div>
+        <div class="view-reunion__my-attendance-guest" *ngIf="currentUserReunionAttendance?.status === yesStatus">
+          <p>Will you have a guest attending?</p>
+          <label class="switch">
+            <input
+              type="checkbox"
+              [(ngModel)]="currentUserReunionAttendance.isGuestAttending"
+              name="isGuestAttending"
+              (change)="
+                updateGuestAttendance(currentUserReunionAttendance, currentUserReunionAttendance.isGuestAttending)
+              "
+            />
+            <span class="slider round"></span>
+          </label>
+        </div>
     </div>
   </div>
   <div class="view-reunion__section" *ngIf="reunionEvents$ | async as reunionEvents">
@@ -46,7 +60,7 @@
             {{ reunionEvent.description }}
           </div>
           <div class="event-description event-rsvp">
-           {{ getCurrentUserEventAttendanceStatus(reunionEvent) | titlecase }}
+            {{ getCurrentUserEventAttendanceStatus(reunionEvent) | titlecase }}
           </div>
           <div class="event-description">
             <i class="material-icons">
@@ -81,7 +95,7 @@
         I'll Be There
       </div>
       <div class="view-reunion__attendee" *ngFor="let yesAttendee of yesAttendees">
-        {{ yesAttendee.name }}
+        {{ yesAttendee.name }} {{ yesAttendee.isGuestAttending ? '+1 Guest' : '' }}
       </div>
       <div class="view-reunion__attendance--maybe">
         <div class="view-reunion__attendance-title  view-reunion__attendance-title--maybe">

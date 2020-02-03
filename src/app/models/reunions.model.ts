@@ -16,6 +16,7 @@ export interface ReunionAttendance {
   uid: string;
   name: string;
   status: string;
+  isGuestAttending: boolean;
 }
 
 export interface ReunionAttendanceId extends ReunionAttendance {
@@ -38,6 +39,7 @@ export interface ReunionEventAttendance {
   uid: string;
   name: string;
   status: string;
+  isGuestAttending: boolean;
 }
 
 export interface ReunionEventAttendanceId extends ReunionEventAttendance {
