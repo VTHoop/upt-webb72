@@ -14,19 +14,20 @@
       class="profile-pic profile-pic--current profile-pic__view-profile"
       [ngStyle]="{ 'background-image': 'url(' + (currentProfilePic$ | async) + ')' }"
     ></div>
-    <div class="view-profile__title--text">
+    <div class="view-profile__title--text heading--with-underline">
       {{ pilot.firstName }} {{ pilot.middleInitial }}
       {{ pilot.lastName }}
     </div>
   </div>
-  <form [formGroup]="fullProfileForm" class="view-profile__form">
+  <form [formGroup]="fullProfileForm" class="view-profile__form form">
     <div class="view-profile__inputs">
-      <div class="view-profile__section-subtitle">Contact</div>
+      <div class="view-profile__section-subtitle heading--with-underline">Contact</div>
       <div class="view-profile__section">
         <div class="view-profile__email" *ngIf="!pilot.emailPrivate">
           <div class="form__group">
-            <label for="currentCity" class="form__label">Email</label>
-            <input type="text" name="email" class="form__input" formControlName="email" />
+            <label for="email" class="form__label">Email</label>
+            <a [href]="getMailTo(fullProfileForm.get('email').value)" class="mail-to">{{fullProfileForm.get('email').value}}</a>
+            <!-- <input type="text" name="email" class="form__input" formControlName="email" /> -->
           </div>
         </div>
         <div
@@ -75,7 +76,7 @@
           </div>
         </div>
       </div>
-      <div class="view-profile__section-subtitle">Yearbook Info</div>
+      <div class="view-profile__section-subtitle heading--with-underline">Yearbook Info</div>
       <div class="view-profile__section">
         <div class="form__group-layout">
           <div class="form__group">
@@ -113,7 +114,7 @@
         </div>
       </div>
       <ng-container *ngIf="fullProfileForm.get('myLife').value">
-        <div class="view-profile__section-subtitle">Tell Everyone Your Story</div>
+        <div class="view-profile__section-subtitle heading--with-underline">Tell Everyone Your Story</div>
         <div class="view-profile__section">
           <div class="form__group">
             <label for="myLife" class="form__label">Life After Pilot Training</label>

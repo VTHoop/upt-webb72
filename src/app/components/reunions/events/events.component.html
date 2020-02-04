@@ -38,7 +38,7 @@
         <div class="section--2">
           <h3 class="heading heading-3 text--dark">My Attendance</h3>
           <div class="card">
-            <div class="">
+            <div class="event__my-attendance-response">
               Your current attendance response is:
               <span class="event__current-status"> {{ getCurrentUserStatus(currentUserAttendance) }} </span>
             </div>
@@ -56,6 +56,18 @@
                 No
               </button>
             </div>
+            <div class="event__my-attendance-guest" *ngIf="currentUserAttendance">
+              <p>My guest will attend</p>
+              <label class="switch">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="currentUserAttendance.isGuestAttending"
+                  name="isGuestAttending"
+                  (change)="updateGuestAttendance(currentUserAttendance, currentUserAttendance.isGuestAttending)"
+                />
+                <span class="slider round"></span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -69,7 +81,10 @@
             I'll Be There
           </div>
           <div class="event__attendee" *ngFor="let yesAttendee of yesAttendees">
-            {{ yesAttendee.name }}
+            <p>{{ yesAttendee.name }} {{ yesAttendee.isGuestAttending ? '+1 Guest' : '' }}</p>
+          </div>
+          <div class="event__attendee" *ngFor="let noAttendeeButGuest of noAttendees">
+            <p *ngIf="noAttendeeButGuest.isGuestAttending">{{ noAttendeeButGuest.name }}'s Guest</p>
           </div>
           <div class="event__attendance--no">
             <div class="event__attendance-title  event__attendance-title--no">

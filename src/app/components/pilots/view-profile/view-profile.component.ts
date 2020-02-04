@@ -72,4 +72,8 @@ export class ViewProfileComponent implements OnInit {
   backToPilots() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
+
+  getMailTo(emailAddress: string): string {
+    return `mailTo:${emailAddress}`;
+  }
 }

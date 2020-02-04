@@ -4,7 +4,13 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ReunionsService } from 'src/app/services/reunions.service';
 import { Subscription, Observable } from 'rxjs';
 import { UserId } from 'src/app/models/user.model';
-import { ReunionId, ReunionEventId, AttendanceStatus, ReunionAttendanceId } from 'src/app/models/reunions.model';
+import {
+  ReunionId,
+  ReunionEventId,
+  AttendanceStatus,
+  ReunionAttendanceId,
+  ReunionEventAttendance
+} from 'src/app/models/reunions.model';
 import { switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
 
@@ -77,12 +83,17 @@ export class EventsComponent implements OnInit, OnDestroy {
     }
   }
 
-  createNewAttendance(status: string) {
+  updateGuestAttendance(attendee: ReunionAttendanceId, isGuestAttending: boolean) {
+    this.reunions.updateReunionEventAttendance(this.reunionId, this.eventId, attendee.id, { isGuestAttending });
+  }
+
+  createNewAttendance(status: string): ReunionEventAttendance {
     return {
       name: `${this.currentUser.rank} ${this.currentUser.firstName} ${this.currentUser.middleInitial} ${this.currentUser.lastName} (${this.currentUser.nickname})`,
       eventId: this.eventId,
       status,
-      uid: this.currentUser.uid
+      uid: this.currentUser.uid,
+      isGuestAttending: false
     };
   }
 

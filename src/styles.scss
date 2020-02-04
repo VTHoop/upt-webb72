@@ -49,6 +49,20 @@ body {
 .heading {
   font-family: 'Oswald', serif;
   text-transform: uppercase;
+
+  &--with-underline {
+    &::after {
+      position: absolute;
+      content: '';
+      height: 4px;
+      bottom: -5px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 100%;
+      background: var(--color-accent);
+    }
+  }
 }
 
 .heading-1 {
@@ -349,6 +363,17 @@ input:checked + .slider:before {
     display: block;
     letter-spacing: 0.1rem;
   }
+}
+
+a.mail-to {
+  font-size: 2rem;
+  font-family: inherit;
+  color: white;
+  padding: 1.5rem 1.5rem;
+  background-color: var(--color-primary);
+  width: 100%;
+  display: block;
+  border: none;
 }
 
 .label {
