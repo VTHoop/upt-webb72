@@ -25,9 +25,12 @@ import { ReunionsModule } from './components/reunions/reunions.module';
 import { ReunionsComponent } from './components/reunions/reunions.component';
 import { DropZoneDirective } from './shared/directives/drop-zone.directive';
 import { FileUploadComponent } from './components/shared/file-upload/file-upload.component';
+import { AdminModule } from './components/admin/admin.module';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
+    AdminComponent,
     AppComponent,
     PilotsComponent,
     ReunionsComponent,
@@ -36,9 +39,10 @@ import { FileUploadComponent } from './components/shared/file-upload/file-upload
     HomeComponent,
     PageNotFoundComponent,
     DropZoneDirective,
-    FileUploadComponent,
+    FileUploadComponent
   ],
   imports: [
+    AdminModule,
     AutosizeModule,
     BrowserModule,
     BrowserAnimationsModule,

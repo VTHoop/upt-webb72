@@ -115,7 +115,7 @@ export class ReunionViewComponent implements OnInit, OnDestroy {
   }
 
   checkIfMidnight(time: firebase.firestore.Timestamp): boolean {
-    return moment(time.toDate()).format('H:mm') === '0:00';
+    return moment(time.toDate()).format('H:mm') === '12:01';
   }
 
   backToReunions() {

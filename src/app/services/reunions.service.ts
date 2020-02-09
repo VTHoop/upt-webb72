@@ -124,7 +124,7 @@ export class ReunionsService {
 
   getReunionEvents(docId: string): Observable<ReunionEventId[]> {
     return this.getReunionDoc(docId)
-      .collection('events', ref => ref.orderBy('eventDate'))
+      .collection('events', ref => ref.orderBy('eventDate', 'asc'))
       .snapshotChanges()
       .pipe(
         map(actions =>

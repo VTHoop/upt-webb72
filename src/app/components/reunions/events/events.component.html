@@ -25,7 +25,7 @@
               <i class="material-icons">
                 timer
               </i>
-              {{ checkIfMidnight(event.eventDate) ? 'TBD' : (event.eventDate.seconds * 1000 | date: 'HHmm') }}
+              {{ event.eventTime }}
             </div>
             <div class="event__detail">
               <i class="material-icons">

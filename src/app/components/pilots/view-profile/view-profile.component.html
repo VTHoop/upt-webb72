@@ -14,7 +14,7 @@
       class="profile-pic profile-pic--current profile-pic__view-profile"
       [ngStyle]="{ 'background-image': 'url(' + (currentProfilePic$ | async) + ')' }"
     ></div>
-    <div class="view-profile__title--text heading--with-underline">
+    <div class="view-profile__title--text">
       {{ pilot.firstName }} {{ pilot.middleInitial }}
       {{ pilot.lastName }}
     </div>

@@ -50,6 +50,18 @@ export class ValidUsersService {
       );
   }
 
+  createUser(user: ValidUser) {
+    return new Promise<any>((resolve, reject) => {
+      this.afs
+        .collection(this._firebaseCollection)
+        .add(Object.assign({}, user))
+        .then(
+          res => resolve(res),
+          err => reject(err)
+        );
+    });
+  }
+
   updateUserData(email: string, uid: string) {
     return this.getValidUserReference('email', email)
       .doc(uid)

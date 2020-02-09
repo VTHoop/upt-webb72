@@ -88,9 +88,16 @@
   text-transform: uppercase;
   font-weight: 400;
   letter-spacing: 0.2rem;
+  font-size: 2.4rem;
+  position: relative;
+  margin-bottom: 1rem;
 
   display: flex;
   align-items: center;
+
+  &::after {
+    background: linear-gradient(to right, white 0%, 10%, var(--color-accent) 90%, white 100%);
+  }
 }
 
 .event-description {

@@ -56,15 +56,9 @@
       position: relative;
       margin-bottom: 10px;
 
-      // &::after {
-      //   position: absolute;
-      //   content: '';
-      //   height: 4px;
-      //   bottom: -5px;
-      //   left: 0;
-      //   width: 100%;
-      //   background: var(--color-accent);
-      // }
+      &::after {
+        background: linear-gradient(to right, white 0%, 10%, var(--color-accent) 90%, white 100%);
+      }
     }
     &--nickname {
       font-family: 'Cardo', sans-serif;

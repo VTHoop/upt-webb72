@@ -26,6 +26,7 @@ export interface ReunionAttendanceId extends ReunionAttendance {
 // subcollection of reunion
 export interface ReunionEvent {
   eventDate: firebase.firestore.Timestamp;
+  eventTime: string;
   description: string;
   location?: string;
 }

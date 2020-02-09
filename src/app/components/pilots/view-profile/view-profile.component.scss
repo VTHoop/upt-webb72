@@ -57,13 +57,15 @@ select {
       font-family: 'Oswald', serif;
       color: white;
       font-size: 3rem;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
       font-weight: lighter;
       position: relative;
 
       &::after {
         height: 2px;
         margin: 0;
+        bottom: -12px;
+        background: linear-gradient(to right, var(--color-accent) 60%, var(--color-primary))
       }
     }
   }
