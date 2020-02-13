@@ -36,6 +36,18 @@
     margin-bottom: 2rem;
   }
 
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  &__information {
+    .reunion__information-item:not(:last-child){
+      margin-bottom: 2rem;
+    }
+  }
+
   &__title {
     position: relative;
   }

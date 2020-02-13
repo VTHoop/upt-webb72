@@ -5,14 +5,23 @@
       <div class="reunion__title">
         <h3 class="heading heading-3 text--light heading--with-underline ">{{ reunion.title }}</h3>
       </div>
-      <div class="reunion__location">
-        <div class="label reunion__label">Location</div>
-        <div class="reunion__info">{{ getReunionLocation(reunion) }}</div>
-      </div>
-      <div class="reunion__date">
-        <div class="label reunion__label">Dates</div>
-        <div class="reunion__info">
-          {{ getReunionDates(reunion) }}
+      <div class="reunion__details">
+        <div class="reunion__information">
+          <div class="reunion__information-item">
+            <div class="label reunion__label">Location</div>
+            <div class="reunion__info">{{ getReunionLocation(reunion) }}</div>
+          </div>
+          <div class="reunion__information-item">
+            <div class="label reunion__label">Dates</div>
+            <div class="reunion__info">
+              {{ getReunionDates(reunion) }}
+            </div>
+          </div>
+        </div>
+        <div class="reunion__link">
+          <div class="btn btn-dark reunion__btn-event">
+            Reunion Details/RSVP <i _ngcontent-dah-c3="" class="material-icons">arrow_forward</i>
+          </div>
         </div>
       </div>
     </div>
