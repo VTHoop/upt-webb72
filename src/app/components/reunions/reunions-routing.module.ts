@@ -5,6 +5,7 @@ import { ReunionsComponent } from './reunions.component';
 import { ReunionListComponent } from './reunion-list/reunion-list.component';
 import { ReunionViewComponent } from './reunion-view/reunion-view.component';
 import { EventsComponent } from './events/events.component';
+import { UnderConstructionComponent } from '../shared/under-construction/under-construction.component';
 
 const reunionRoutes: Routes = [
   {
@@ -17,6 +18,12 @@ const reunionRoutes: Routes = [
         component: ReunionListComponent,
         canActivateChild: [AuthGuard],
         data: { animation: 'isLeft' }
+      },
+      {
+        path: 'under-construction',
+        component: UnderConstructionComponent,
+        canActivateChild: [AuthGuard],
+        data: { animation: 'isRight' }
       },
       {
         path: ':id',

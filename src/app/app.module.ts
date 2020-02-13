@@ -27,6 +27,7 @@ import { DropZoneDirective } from './shared/directives/drop-zone.directive';
 import { FileUploadComponent } from './components/shared/file-upload/file-upload.component';
 import { AdminModule } from './components/admin/admin.module';
 import { AdminComponent } from './components/admin/admin.component';
+import { UnderConstructionComponent } from './components/shared/under-construction/under-construction.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AdminComponent } from './components/admin/admin.component';
     HomeComponent,
     PageNotFoundComponent,
     DropZoneDirective,
-    FileUploadComponent
+    FileUploadComponent,
+    UnderConstructionComponent
   ],
   imports: [
     AdminModule,

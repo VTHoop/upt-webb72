@@ -11,16 +11,20 @@
 }
 
 .reunions {
-  display: grid;
+  // display: grid;
 
-  grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
-  grid-gap: 4rem;
+  // grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+  // grid-gap: 4rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .reunion {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+
+  margin-bottom: 3rem;
 
   transition: 0.2s transform;
 
@@ -30,6 +34,10 @@
 
   & > * {
     margin-bottom: 2rem;
+  }
+
+  &__title {
+    position: relative;
   }
 
   &__info {

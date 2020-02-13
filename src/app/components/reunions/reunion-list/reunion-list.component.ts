@@ -18,7 +18,25 @@ export class ReunionListComponent implements OnInit {
     this.reunions$ = this.reunions.getReunions(null, null);
   }
 
-  openReunion(reunion: ReunionId) {
-    this.router.navigate(['/reunions', reunion.id]);
+  openReunion(reunion: ReunionId): void {
+    if (reunion.underConstruction) {
+      this.router.navigate(['/reunions', 'under-construction']);
+    } else {
+      this.router.navigate(['/reunions', reunion.id]);
+    }
+  }
+
+  getReunionLocation(reunion: ReunionId): string {
+    if (reunion.locationCity === 'TBD') {
+      return 'TBD';
+    }
+    return `${reunion.locationCity}, ${reunion.locationState}`;
+  }
+
+  getReunionDates(reunion: ReunionId): string {
+    if (reunion.reunionStart === 'TBD') {
+      return 'TBD';
+    }
+    return `${reunion.reunionStart} - ${reunion.reunionEnd}`;
   }
 }

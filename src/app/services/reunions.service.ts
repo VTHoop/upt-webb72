@@ -42,7 +42,8 @@ export class ReunionsService {
   // READ one, READ all
   ///////////
   getReunions(field: string, criteria: string): Observable<ReunionId[]> {
-    return this.getReunionCollection(field, criteria)
+    return this.afs
+      .collection('reunions', ref => ref.orderBy('reunionDate', 'asc'))
       .snapshotChanges()
       .pipe(
         map(actions =>

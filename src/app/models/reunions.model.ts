@@ -5,6 +5,8 @@ export interface Reunion {
   reunionStart: string;
   reunionEnd: string;
   reunionYear: string;
+  title: string;
+  underConstruction: boolean;
 }
 
 export interface ReunionId extends Reunion {

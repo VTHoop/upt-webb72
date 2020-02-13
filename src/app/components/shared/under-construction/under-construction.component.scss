@@ -1,0 +1,23 @@
+.under-construction {
+  &__navigation {
+    margin-bottom: 3rem;
+
+    &--back {
+      display: flex;
+      align-items: center;
+      font-size: 1.6rem;
+      color: var(--color-accent);
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__icon {
+    height: 40vh;
+  }
+}
