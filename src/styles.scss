@@ -295,6 +295,12 @@ input:checked + .slider:before {
     margin-bottom: 2rem;
   }
 
+  &__group--select {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   &__input {
     font-size: 2rem;
     font-family: inherit;
@@ -307,6 +313,9 @@ input:checked + .slider:before {
     transition: all 0.3s;
     border: none;
     border-bottom: 2px solid white;
+    -webkit-text-fill-color: white;
+    opacity: 1;
+    -webkit-opacity: 1;
 
     &--with-icon {
       display: flex;
@@ -415,4 +424,10 @@ a.mail-to {
 
 .toast-container {
   font-size: 1.6rem;
+}
+
+option {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }

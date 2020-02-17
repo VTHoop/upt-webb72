@@ -52,6 +52,7 @@
   justify-items: center;
   align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  min-height: 100vh;
 
   flex: 1;
 

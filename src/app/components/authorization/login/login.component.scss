@@ -6,3 +6,9 @@
   color: white;
   font-size: 1.4rem;
 }
+
+.login {
+  &__input {
+    min-width: 350px;
+  }
+}

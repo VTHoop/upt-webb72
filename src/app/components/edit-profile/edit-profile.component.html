@@ -69,7 +69,7 @@
               <label for="currentCity" class="form__label">Current City</label>
               <input type="text" name="currentCity" class="form__input" formControlName="currentCity" />
             </div>
-            <div class="form__group form__group--state-with-city-and-zip">
+            <div class="form__group form__group--select form__group--state-with-city-and-zip">
               <label for="currentState" class="form__label">State</label>
               <select name="currentState" class="form__input" formControlName="currentState">
                 <option [ngValue]="stateAbbrev" *ngFor="let stateAbbrev of objectKeys(states)">
