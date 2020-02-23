@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "upt-webb72"
+    "default": "upt-webb72",
+    "dev": "upt-webb72-dev"
   }
 }

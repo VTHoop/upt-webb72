@@ -11,6 +11,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
@@ -56,6 +57,7 @@ import { UnderConstructionComponent } from './components/shared/under-constructi
     HttpClientModule,
     ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAnalyticsModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule,

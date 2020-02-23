@@ -55,7 +55,7 @@ export class UsersService {
 
   getPilots(): Observable<UserId[]> {
     return this.afs
-      .collection(this._firebaseCollection, ref => ref.where('display', '==', true))
+      .collection(this._firebaseCollection, ref => ref.where('display', '==', true).orderBy('lastName', 'asc'))
       .snapshotChanges()
       .pipe(
         map(actions =>
